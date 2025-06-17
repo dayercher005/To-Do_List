@@ -1,17 +1,57 @@
-*{
-    margin: 0;
+:root{
+    --white-color: hsl(0, 0%, 100%);
+    --border-color: hsl(0, 2%, 11%);
 }
 
-#sidebar{
-    height: 100vh;
+*{
+    margin: 0;
+    font-family: Roboto;
+    background-color: hsl(0, 1%, 26%);
+    color: var(--white-color);
+}
+
+body{
+    display: flex;
+}
+
+
+/* CSS Code for Static Sidebar Elements */
+.sidebarContainer, h2[id="TodoTitle"], div[id="ProjectsTitle"]{
+    background-color: var(--border-color);
+    font-weight: 700;
+    margin: 20px;
+}
+
+h2[id="TodoTitle"]{
+    text-align: center;
+    border-bottom: 2px solid var(--white-color);
+}
+
+.sidebar{
+    border: 2px solid var(--border-color);
+    height: 98vh;
+    margin: 5px;
+    border-radius: 10px;
     width: 15vw;
     min-width: 100px;
     max-width: 300px;
-    background-color: hsl(224, 84%, 66%);
+    background-color: var(--border-color);
 }
 
-button[id="addTodo"]{
+button[id="projectButton"]{
     background-color: hsl(122, 63%, 58%);
     width: 100px;
     height: 30px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* CSS Code for Static Mainbar Elements */
+div[id="mainContent"]{
+    border: 1px solid var(--border-color);
+    width: 100%;
+    margin: 10px 10px 0 5px;
+    background-color: var(--border-color);
+    border-radius: 20px;
+    padding: 20px;
 }
