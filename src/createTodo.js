@@ -1,3 +1,15 @@
-export default function Todo(title, description, dueDate, priority){
-    return {title, description, dueDate, priority}
+class Todo{
+    
+    constructor(title, description, dueDate, priority){
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = () => {
+            if (priority == "Urgent"){
+                priority = "Not Urgent"
+            } else {
+                priority = "Urgent"
+            }
+        }
+    }
 }

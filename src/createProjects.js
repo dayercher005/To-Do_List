@@ -1,5 +1,6 @@
-function Project(name){
-    return name
-};
+class Project{
 
-const defaultProject = Project("Default");
+    constructor(name) {
+        this.name = name;
+    }
+}
