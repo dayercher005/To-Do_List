@@ -3,12 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>To-Do List</title>
 <script defer src="main.js"></script></head>
 <body>
-    <div id="sidebar">
-        <button id="projectButton">Add Project</button>
+    <div id="sidebarContainer" class="sidebar">
+        <h2 id="TodoTitle">Todo List</h2>
+        <div id="ProjectTitleContainer">
+            <div id="ProjectsTitle">Projects</div>
+            <button id="addProjects">+</button>
+        </div>
+        <div id="ProjectList">
+
+        </div>
     </div>
-    <div id="content"></div>
+
+    <div id="mainContent">
+        <dialog>
+            <form>
+                <p>
+                    <label>Project Name: </label>
+                    <input id="projectName" type="text" required>
+                </p>
+                <button type="submit">Submit</button>
+            </form>
+        </dialog>
+
+        <dialog>
+            <form>
+                <label>Title: </label>
+                <input type="text">
+                <label>Description: </label>
+                <input type="">
+                <label>Due Date: </label>
+                <input type="date">
+                <label>Priority: </label>
+                <select>
+                    <option value="Urgent">Urgent</option>
+                    <option value="Not Urgent">Not Urgent</option>
+                </select>
+                <button>Submit</button>
+            </form>
+        </dialog>
+    </div>
 </body>
 </html>

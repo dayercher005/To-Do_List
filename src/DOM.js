@@ -1,1 +1,16 @@
 
+export default function ProjectModalEventListeners() {
+
+    const addProjects = document.querySelector("#addProjects");
+    const projectDialog = document.querySelector("#projectDialog");
+    const submitProjectDialog = document.querySelector("#submitProjectDialog"); 
+
+    addProjects.addEventListener("click", () => {
+        projectDialog.showModal();
+    })
+
+    submitProjectDialog.addEventListener("click", (e) =>{
+        e.preventDefault();
+        projectDialog.close();
+    })
+}
