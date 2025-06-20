@@ -1,6 +1,9 @@
+const ProjectArray = [];
+
 class Project{
 
-    constructor(name) {
+    constructor(name, TodoArray = []) {
         this.name = name;
     }
-}
+} 
+

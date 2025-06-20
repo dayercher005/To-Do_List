@@ -1,3 +1,5 @@
+/* General CSS Code and Global Variables */
+
 :root{
     --white-color: hsl(0, 0%, 100%);
     --border-color: hsl(0, 2%, 11%);
@@ -17,6 +19,7 @@ body{
 
 
 /* CSS Code for Static Sidebar Elements */
+
 .sidebarContainer, h2[id="TodoTitle"], div[id="ProjectsTitle"]{
     background-color: var(--border-color);
     font-weight: 700;
@@ -64,7 +67,7 @@ div[id="ProjectTitleContainer"]{
     background-color: var(--border-color);
 }
 
-/* CSS Code for Static Mainbar Elements */
+/* CSS Code for Static Main Bar Elements */
 div[id="mainContent"]{
     border: 1px solid var(--border-color);
     width: 100%;
@@ -104,6 +107,10 @@ input[type="submit"]{
     width: 100px;
     height: 30px;
     font-size: 1.1rem;
+}
+
+input[type="submit"]:hover{
+    background-color: hsl(122, 63%, 55%)
 }
 
 label[class="modalLabels"]{
