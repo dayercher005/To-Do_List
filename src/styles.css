@@ -74,39 +74,3 @@ div[id="mainContent"]{
 }
 
 /* CSS Code for Project Pop Up*/
-
-div[id="projectInputContainer"]{
-    display: none;
-    position: absolute;
-    left: 50%;
-    right: 50%;
-    bottom: 50%;
-    border-radius: 10px;
-    height: 30vh;
-    min-height: 40px;
-    max-height: 80px;
-    width: 40vw;
-    min-width: 300px;
-    max-width: 450px;
-    text-align: center;
-}
-
-div[id="projectInputContainer"], label[id="ProjectNameLabel"], input[id="ProjectNameInput"]{
-    background-color: var(--white-color);
-    color: var(--border-color);
-    padding-top: 5px;
-    font-size: 1.2rem;
-}
-
-button[id="crossProjectButton"]{
-    position: relative;
-    left: 45px;
-    bottom: 15px;
-    background-color: hsl(0, 76%, 53%);
-    border-radius: 100%;
-    border: none;
-}
-
-button[id="crossProjectButton"]:hover{
-    background-color: hsl(0, 78%, 40%);
-}
