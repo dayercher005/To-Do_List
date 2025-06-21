@@ -1,4 +1,5 @@
-import {ProjectArray, Project} from "./createProjects.js"
+import {ProjectArray, Project} from "./createProjects.js";
+import {Todo} from "./createTodo.js";
 
 export default function ProjectModalEventListeners() {
 
@@ -17,13 +18,12 @@ export default function ProjectModalEventListeners() {
     })
 }
 
-// export default function CreateProjectElements(){   
-// }
 
 function AppendProjectSidebar(){
     const ProjectList = document.querySelector("#ProjectList");
     const modalProjectNameInput = document.querySelector("#modalProjectNameInput");
     const sidebarProject = document.createElement("div");
+    sidebarProject.classList.add("sidebarProject")
     const newProject = new Project(name);
     ProjectArray.push(newProject);
 
@@ -34,4 +34,8 @@ function AppendProjectSidebar(){
     
   
     ProjectList.appendChild(sidebarProject);
+}
+
+function DisplayProjectMainbar(){
+
 }

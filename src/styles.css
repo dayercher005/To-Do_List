@@ -126,3 +126,16 @@ label[class="modalLabels"]{
     border: 2px solid hsl(224, 82%, 59%);
     border-radius: 5px;
 }
+
+/* CSS Code for Non-static Sidebar (Adding Projects) */
+
+div.sidebarProject{
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+div.sidebarProject:hover{
+    background-color: hsl(0, 1%, 34%);
+}
