@@ -4,6 +4,7 @@
     --white-color: hsl(0, 0%, 100%);
     --border-color: hsl(0, 2%, 11%);
     --green: hsl(129, 83%, 58%);
+    --border-hover-color: hsl(0, 1%, 34%);
 }
 
 *{
@@ -131,15 +132,33 @@ label[class="modalLabels"]{
 
 /* CSS Code for Non-static Sidebar (Adding Projects) */
 
-div.sidebarProject{
+div.sidebarProjectContainer{
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
     font-size: 1.2rem;
+    align-items: center;
 }
 
-div.sidebarProject:hover{
-    background-color: hsl(0, 1%, 34%);
+p.sidebarProject:hover{
+    display: flex;
+    background-color: var(--border-hover-color)
+}
+
+div.sidebarProjectContainer{
+    display: flex;
+    justify-content: space-between;
+    overflow: auto;
+}
+
+img{
+    width: 35px;
+    height: 40px;
+}
+
+img:hover{
+    background-color: var(--border-hover-color);
+    border-radius: 10px;
 }
 
 /* CSS Code for Project Card Main Content*/

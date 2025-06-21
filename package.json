@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/dayercher005/To-Do_List#readme",
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "css-loader": "^7.1.2",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",

@@ -16,35 +16,44 @@
             <button id="addProjects">+</button>
         </div>
         <div id="ProjectList">
-            
+
         </div>
     </div>
 
     <div id="mainContent">
-        <dialog>
+        <dialog id="projectDialog">
             <form>
-                <p>
-                    <label>Project Name: </label>
-                    <input id="projectName" type="text" required>
-                </p>
-                <button type="submit">Submit</button>
+                <div class="Labels&Inputs">
+                    <label id="ProjectName" for="ProjectName" class="modalLabels">Project Name: </label>
+                    <input id="modalProjectNameInput" class="modalInput" type="text" required>
+                </div>
+                <div class="submitContainer">
+                    <input class="modalInput" id="submitProjectDialog" type="submit">
+                </div>
+                
             </form>
         </dialog>
 
-        <dialog>
+        <dialog id="todoDialog">
             <form>
-                <label>Title: </label>
-                <input type="text">
-                <label>Description: </label>
-                <input type="">
-                <label>Due Date: </label>
-                <input type="date">
-                <label>Priority: </label>
-                <select>
-                    <option value="Urgent">Urgent</option>
-                    <option value="Not Urgent">Not Urgent</option>
-                </select>
-                <button>Submit</button>
+                <div class="Labels&Inputs">
+                    <label for="Title" class="modalLabels">Title: </label>
+                    <input class="modalInput" type="text">
+                </div>
+                <div class="Labels&Inputs">
+                    <label for="Description" class="modalLabels">Description: </label>
+                    <input class="modalInput" type="text" required>
+                </div class="Labels&Inputs">
+                    <label for="Due Date" class="modalLabels">Due Date: </label>
+                    <input class="modalInput" type="date" required>
+                <div>
+                    <label for="Priority" class="modalLabels">Priority: </label>
+                    <select class="modalInput">
+                        <option value="Urgent">Urgent</option>
+                        <option value="Not Urgent">Not Urgent</option>
+                    </select>
+                </div>
+                <input id="submitTodoDialog" type="submit">
             </form>
         </dialog>
     </div>
