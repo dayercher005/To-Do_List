@@ -1,9 +1,12 @@
+export {ProjectArray, Project}
+
 const ProjectArray = [];
 
-class Project{
+export default class Project{
 
-    constructor(name, TodoArray = []) {
+    constructor(name) {
         this.name = name;
+        this.id = crypto.randomUUID;
+        this.TodoArray = [];
     }
 } 
-
