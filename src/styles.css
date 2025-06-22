@@ -140,9 +140,9 @@ div.sidebarProjectContainer{
     align-items: center;
 }
 
-p.sidebarProject:hover{
+div.sidebarProjectContainer:hover{
     display: flex;
-    background-color: var(--border-hover-color)
+    background-color: var(--border-hover-color);
 }
 
 div.sidebarProjectContainer{
@@ -154,15 +154,21 @@ div.sidebarProjectContainer{
 img{
     width: 35px;
     height: 40px;
+    border-radius: 10px;
 }
 
-img:hover{
+img:hover, p.sidebarProject:hover{
     background-color: var(--border-hover-color);
-    border-radius: 10px;
 }
 
 /* CSS Code for Project Card Main Content*/
 div.projectCard{
     background-color: var(--white-color);
-    width: 90%;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+p.projectCardTitle{
+    text-align: center;
 }

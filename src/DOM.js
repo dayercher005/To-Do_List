@@ -1,26 +1,35 @@
 import {ProjectArray, Project} from "./createProjects.js";
 import {Todo} from "./createTodo.js";
 import binImage from "../images/archive.png";
+import ProjectFunction from "./logic.js";
 
-export default function ProjectModalEventListeners() {
+const mainContent = document.querySelector("#mainContent");
+const submitProjectDialog = document.querySelector("#submitProjectDialog"); 
+const addSidebarProjects = document.querySelector("#addProjects");
+const projectDialog = document.querySelector("#projectDialog");
 
-    const addProjects = document.querySelector("#addProjects");
-    const projectDialog = document.querySelector("#projectDialog");
-    const submitProjectDialog = document.querySelector("#submitProjectDialog"); 
-
-    addProjects.addEventListener("click", () => {
-        projectDialog.showModal();
-    })
+export function ProjectModalEventListeners() { 
 
     submitProjectDialog.addEventListener("click", (e) => {
         e.preventDefault();
         projectDialog.close();
-        AppendProjectSidebar();
+        renderSidebarProject();
     })
 }
 
+export function StaticSidebarEventListeners(){
 
-function AppendProjectSidebar(){
+    addSidebarProjects.addEventListener("click", () => {
+        projectDialog.showModal();
+    })
+
+    return projectDialog;
+}
+
+
+
+function renderSidebarProject(){
+
     const sidebarProjectContainer = document.createElement("div");
     sidebarProjectContainer.classList.add("sidebarProjectContainer");
     const image = document.createElement("img");
@@ -31,6 +40,7 @@ function AppendProjectSidebar(){
     sidebarProjectContainer.appendChild(image);
     const ProjectList = document.querySelector("#ProjectList");
     ProjectList.appendChild(sidebarProjectContainer);
+
     const modalProjectNameInput = document.querySelector("#modalProjectNameInput");
     const newProject = new Project(name);
     ProjectArray.push(newProject);
@@ -38,10 +48,13 @@ function AppendProjectSidebar(){
     ProjectArray.forEach((project) => {
         project.name = modalProjectNameInput.value;
         sidebarProject.textContent = `${project.name}`;
+        sidebarProjectContainer.setAttribute("dataset-object-Id", project.id);
     });
+    console.log(ProjectArray);
 
     image.addEventListener("click", () => {
         sidebarProjectContainer.remove();
     })
     
 }
+        

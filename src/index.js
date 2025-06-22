@@ -1,5 +1,5 @@
 import "./styles.css";
-import ProjectModalEventListeners from "./DOM.js"
+import {StaticSidebarEventListeners, ProjectModalEventListeners} from "./DOM.js"
 
-
+StaticSidebarEventListeners();
 ProjectModalEventListeners();
