@@ -102,7 +102,7 @@ dialog{
     background-color: var(--white-color);
 }
 
-input[type="submit"]{
+input[type="submit"], button.addTodoButton{
     background-color: var(--green);
     border: none;
     border-radius: 5px;
@@ -112,7 +112,7 @@ input[type="submit"]{
     font-size: 1.1rem;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover, button.addTodoButton:hover{
     background-color: hsl(122, 63%, 55%)
 }
 
@@ -162,13 +162,27 @@ img:hover, p.sidebarProject:hover{
 }
 
 /* CSS Code for Project Card Main Content*/
-div.projectCard{
+div.mainProjectContainer{
     background-color: var(--white-color);
     width: 100%;
     height: 100%;
     border-radius: 20px;
 }
 
-p.projectCardTitle{
-    text-align: center;
+div.mainProjectHead{
+    display: flex;
+    align-items: center;
 }
+
+p.mainProjectTitle{
+    margin-left: 50%;
+    font-size: 1.4rem;
+
+}
+
+button.addTodoButton{
+    margin-left: auto;
+    width: 150px;
+    height: 40px;
+}
+

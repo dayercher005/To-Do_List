@@ -5,7 +5,7 @@ export class Todo{
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.id = crypto.randomUUID();
+        this.id = self.crypto.randomUUID();
         this.priority = () => {
             if (priority == "Urgent"){
                 priority = "Not Urgent";
