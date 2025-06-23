@@ -115,19 +115,19 @@ function TodoModalDOM() {
     const TodoCard = document.createElement("p");
     mainProjectContainer.appendChild(TodoCard);
 
+
     const cardTodoTitle = document.createElement("p");
     TodoCard.appendChild(cardTodoTitle);
 
     const cardTodoDate = document.createElement("div");
     TodoCard.appendChild(cardTodoDate);    
 
-    submitTodoDialog.addEventListener("click", () => {
+    submitTodoDialog.addEventListener("click", (e) => {
 
-        const newProject = new Project(name);
-        ProjectArray.push(newProject);
+        e.preventDefault()
 
         ProjectArray.forEach((project) => {
-            const newTodo = new Todo(title, description, dueDate, priority);
+            const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput, modalTodoPriorityInput.value);
             project.TodoArray.push(newTodo);
 
             project.TodoArray.forEach((todo) => {
