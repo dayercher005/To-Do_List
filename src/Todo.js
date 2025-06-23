@@ -1,18 +1,13 @@
+export {Todo}
 
-export class Todo{
+export default class Todo{
     
     constructor(title, description, dueDate, priority){
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.id = self.crypto.randomUUID();
-        this.priority = () => {
-            if (priority == "Urgent"){
-                priority = "Not Urgent";
-            } else {
-                priority = "Urgent";
-            }
-        }
+        this.priority = priority;
     }
 }
 

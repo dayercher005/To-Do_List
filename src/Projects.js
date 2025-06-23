@@ -2,7 +2,7 @@ export {ProjectArray, Project}
 
 const ProjectArray = [];
 
-export default class Project{
+class Project{
 
     constructor(name) {
         this.name = name;

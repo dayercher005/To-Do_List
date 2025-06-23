@@ -1,5 +1,6 @@
 import "./styles.css";
-import {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM} from "./DOM.js"
+import {AppendProjectSidebar, ProjectModalDOM, TodoModalDOM} from "./DOM.js"
 
 AppendProjectSidebar();
 ProjectModalDOM();
+TodoModalDOM();

@@ -2,17 +2,32 @@ import {ProjectArray, Project} from "./Projects.js";
 import {Todo} from "./Todo.js";
 import binImage from "../images/archive.png";
 
+export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, TodoModalDOM}
+
 const mainContent = document.querySelector("#mainContent");
-const submitProjectDialog = document.querySelector("#submitProjectDialog"); 
+
+const mainProjectContainer = document.createElement("div");
+mainProjectContainer.classList.add("mainProjectContainer");
+mainContent.appendChild(mainProjectContainer);
+
 const addSidebarProjects = document.querySelector("#addProjects");
+
 const projectDialog = document.querySelector("#projectDialog");
-const todoDialog = document.querySelector("#todoDialog");
 const modalProjectNameInput = document.querySelector("#modalProjectNameInput");
+const submitProjectDialog = document.querySelector("#submitProjectDialog");
+
+const todoDialog = document.querySelector("#todoDialog");
+const modalTodoTitleInput = document.querySelector("#modalTodoTitleInput");
+const modalTodoDescriptionInput = document.querySelector("#modalTodoDescriptionInput");
+const modalTodoDateInput = document.querySelector("#modalTodoDateInput");
+const modalTodoPriorityInput = document.querySelector("#modalTodoPriorityInput");
+const submitTodoDialog = document.querySelector("#submitTodoDialog");
+
 const bin = document.createElement("img");
 bin.src = binImage;
 
 
-export function AppendProjectSidebar() {
+function AppendProjectSidebar() {
 
     addSidebarProjects.addEventListener("click", () => {
         projectDialog.showModal();
@@ -21,7 +36,7 @@ export function AppendProjectSidebar() {
     return projectDialog;
 }
 
-export function ProjectModalDOM() { 
+function ProjectModalDOM() { 
 
     submitProjectDialog.addEventListener("click", (e) => {
         e.preventDefault();
@@ -33,7 +48,7 @@ export function ProjectModalDOM() {
 
 
 
-export function ProjectSidebarDOM() {
+function ProjectSidebarDOM() {
 
     const sidebarProjectContainer = document.createElement("div");
     sidebarProjectContainer.classList.add("sidebarProjectContainer");
@@ -59,10 +74,6 @@ export function ProjectSidebarDOM() {
 }
 
 function MainProjectDOM() {
-    
-    const mainProjectContainer = document.createElement("div");
-    mainProjectContainer.classList.add("mainProjectContainer");
-    mainContent.appendChild(mainProjectContainer);
 
     const mainProjectHead = document.createElement("div");
     mainProjectHead.classList.add("mainProjectHead");
@@ -78,7 +89,7 @@ function MainProjectDOM() {
     addTodoButton.textContent = "+ Add Todo"
     
 
-    const newProject = new Project(name);
+    const newProject = new Project(self, name);
     ProjectArray.push(newProject);
 
     ProjectArray.forEach((project) => {
@@ -95,8 +106,41 @@ function MainProjectDOM() {
     })
 
 
+
+
 }
 
-function TodoDOM() {
-    
+function TodoModalDOM() {
+
+    const TodoCard = document.createElement("p");
+    mainProjectContainer.appendChild(TodoCard);
+
+    const cardTodoTitle = document.createElement("p");
+    TodoCard.appendChild(cardTodoTitle);
+
+    const cardTodoDate = document.createElement("div");
+    TodoCard.appendChild(cardTodoDate);    
+
+    submitTodoDialog.addEventListener("click", () => {
+
+        const newProject = new Project(name);
+        ProjectArray.push(newProject);
+
+        ProjectArray.forEach((project) => {
+            const newTodo = new Todo(title, description, dueDate, priority);
+            project.TodoArray.push(newTodo);
+
+            project.TodoArray.forEach((todo) => {
+                todo.title = modalTodoTitleInput.value;
+                cardTodoTitle.textContent = `${todo.title}`;
+
+                todo.description = modalTodoDescriptionInput.value;
+
+                todo.dueDate = modalTodoDateInput.value;
+                cardTodoDate.textContent = `${todo.dueDate}`;
+
+                todo.priority = modalTodoPriorityInput.value;
+            })
+        })
+    })
 }
