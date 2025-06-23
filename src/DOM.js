@@ -1,11 +1,12 @@
 import {ProjectArray, Project} from "./Projects.js";
-import {Todo} from "./createTodo.js";
+import {Todo} from "./Todo.js";
 import binImage from "../images/archive.png";
 
 const mainContent = document.querySelector("#mainContent");
 const submitProjectDialog = document.querySelector("#submitProjectDialog"); 
 const addSidebarProjects = document.querySelector("#addProjects");
 const projectDialog = document.querySelector("#projectDialog");
+const todoDialog = document.querySelector("#todoDialog");
 const modalProjectNameInput = document.querySelector("#modalProjectNameInput");
 const bin = document.createElement("img");
 bin.src = binImage;
@@ -85,6 +86,17 @@ function MainProjectDOM() {
         project.name = modalProjectNameInput.value
         mainProjectTitle.textContent = `${project.name}`;
         console.log(mainProjectTitle);
+
+        addTodoButton.addEventListener("click", () => {
+            todoDialog.showModal();
+
+        })
+
     })
 
+
+}
+
+function TodoDOM() {
+    
 }

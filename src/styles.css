@@ -82,7 +82,7 @@ div[id="mainContent"]{
 
 /* CSS Code for Modals*/
 
-dialog > *, label, input, div[class="Labels&Inputs"]{
+dialog > *, label, input, div[class="Labels&Inputs"], select{
     background-color: var(--white-color);
     border: none;
     color: var(--border-color);
