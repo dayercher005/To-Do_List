@@ -2,7 +2,7 @@ import {ProjectArray, Project} from "./Projects.js";
 import {Todo} from "./Todo.js";
 import binImage from "../images/archive.png";
 
-export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, TodoModalDOM}
+export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, TodoModalDOM, MainProjectDOM}
 
 const mainContent = document.querySelector("#mainContent");
 
@@ -112,7 +112,7 @@ function MainProjectDOM() {
 
 function TodoModalDOM() {
 
-    const TodoCard = document.createElement("p");
+    const TodoCard = document.createElement("div");
     mainProjectContainer.appendChild(TodoCard);
 
 
@@ -134,13 +134,11 @@ function TodoModalDOM() {
                 todo.title = modalTodoTitleInput.value;
                 cardTodoTitle.textContent = `${todo.title}`;
 
-                todo.description = modalTodoDescriptionInput.value;
-
                 todo.dueDate = modalTodoDateInput.value;
                 cardTodoDate.textContent = `${todo.dueDate}`;
-
-                todo.priority = modalTodoPriorityInput.value;
             })
         })
+
+        todoDialog.close();
     })
 }
