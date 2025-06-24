@@ -107,6 +107,8 @@ function MainProjectDOM() {
 
     })
 
+    return mainProjectBody
+
 }
 
 
@@ -115,6 +117,8 @@ function AppendTodoCard() {
     submitTodoDialog.addEventListener("click", (e) => {
 
         e.preventDefault()
+
+        mainProjectBody.innerHTML = "";
 
         ProjectArray.forEach((project) => {
             const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput, modalTodoPriorityInput.value);
