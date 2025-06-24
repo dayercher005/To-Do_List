@@ -26,7 +26,6 @@
                 <div class="Labels&Inputs">
                     <label id="ProjectName" for="ProjectName" class="modalLabels">Project Name: </label>
                     <input id="modalProjectNameInput" class="modalInput" type="text" required>
-                    <input class="modalInput" id="submitProjectDialog" type="submit">
                 </div>
                 <div class="submitContainer">
                     <input class="modalInput" id="submitProjectDialog" type="submit">
@@ -39,17 +38,19 @@
             <form>
                 <div class="Labels&Inputs">
                     <label for="Title" class="modalLabels">Title: </label>
-                    <input class="modalInput" type="text" required>
+                    <input id="modalTodoTitleInput" class="modalInput" type="text">
                 </div>
                 <div class="Labels&Inputs">
                     <label for="Description" class="modalLabels">Description: </label>
-                    <input class="modalInput" type="text" required>
-                </div class="Labels&Inputs">
+                    <input id="modalTodoDescriptionInput" class="modalInput" type="text" required>
+                </div>
+                <div class="Labels&Inputs">
                     <label for="Due Date" class="modalLabels">Due Date: </label>
-                    <input class="modalInput" type="date" required>
-                <div>
+                    <input id="modalTodoDateInput" class="modalInput" type="date" required>
+                </div>
+                <div class="Labels&Inputs">
                     <label for="Priority" class="modalLabels">Priority: </label>
-                    <select class="modalInput">
+                    <select id="modalTodoPriorityInput" class="modalInput">
                         <option value="Urgent">Urgent</option>
                         <option value="Not Urgent">Not Urgent</option>
                     </select>
