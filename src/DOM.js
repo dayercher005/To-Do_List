@@ -2,7 +2,7 @@ import {ProjectArray, Project} from "./Projects.js";
 import {Todo} from "./Todo.js";
 import binImage from "../images/archive.png";
 
-export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, TodoModalDOM, MainProjectDOM}
+export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, MainProjectDOM, AppendTodoCard}
 
 const mainContent = document.querySelector("#mainContent");
 
@@ -60,7 +60,7 @@ function ProjectSidebarDOM() {
     const ProjectList = document.querySelector("#ProjectList");
     ProjectList.appendChild(sidebarProjectContainer);
 
-    const newProject = new Project(name);
+    const newProject = new Project(modalProjectNameInput.value);
     ProjectArray.push(newProject);
 
     ProjectArray.forEach((project) => {
@@ -74,6 +74,8 @@ function ProjectSidebarDOM() {
 }
 
 function MainProjectDOM() {
+
+    mainProjectContainer.innerHTML = "";
 
     const mainProjectHead = document.createElement("div");
     mainProjectHead.classList.add("mainProjectHead");
@@ -89,9 +91,6 @@ function MainProjectDOM() {
     addTodoButton.textContent = "+ Add Todo"
     
 
-    const newProject = new Project(self, name);
-    ProjectArray.push(newProject);
-
     ProjectArray.forEach((project) => {
         mainProjectContainer.setAttribute("dataset-object", project.id);
         project.name = modalProjectNameInput.value
@@ -105,23 +104,11 @@ function MainProjectDOM() {
 
     })
 
-
-
-
 }
 
-function TodoModalDOM() {
 
-    const TodoCard = document.createElement("div");
-    mainProjectContainer.appendChild(TodoCard);
-
-
-    const cardTodoTitle = document.createElement("p");
-    TodoCard.appendChild(cardTodoTitle);
-
-    const cardTodoDate = document.createElement("div");
-    TodoCard.appendChild(cardTodoDate);    
-
+function AppendTodoCard() {
+    
     submitTodoDialog.addEventListener("click", (e) => {
 
         e.preventDefault()
@@ -131,11 +118,24 @@ function TodoModalDOM() {
             project.TodoArray.push(newTodo);
 
             project.TodoArray.forEach((todo) => {
+
+                const TodoCard = document.createElement("div");
+                mainProjectContainer.appendChild(TodoCard);
+
+
+                const cardTodoTitle = document.createElement("p");
+                TodoCard.appendChild(cardTodoTitle);
+
+                const cardTodoDate = document.createElement("div");
+                TodoCard.appendChild(cardTodoDate);
+
+
                 todo.title = modalTodoTitleInput.value;
                 cardTodoTitle.textContent = `${todo.title}`;
 
                 todo.dueDate = modalTodoDateInput.value;
                 cardTodoDate.textContent = `${todo.dueDate}`;
+
             })
         })
 

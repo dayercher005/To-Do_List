@@ -68,6 +68,7 @@ div[id="ProjectTitleContainer"]{
     align-items: center;
     background-color: var(--border-color);
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 /* CSS Code for Static Main Bar Elements */
@@ -162,6 +163,7 @@ img:hover, p.sidebarProject:hover{
 }
 
 /* CSS Code for Project Card Main Content*/
+
 div.mainProjectContainer{
     background-color: var(--white-color);
     width: 100%;
@@ -185,4 +187,8 @@ button.addTodoButton{
     width: 150px;
     height: 40px;
 }
+
+/* CSS Code for Todo Card Styling */
+
+
 
