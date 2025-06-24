@@ -6,7 +6,7 @@ class Project{
 
     constructor(name) {
         this.name = name;
-        this.id = crypto.randomUUID;
+        this.id = self.crypto.randomUUID();
         this.TodoArray = [];
     }
 } 

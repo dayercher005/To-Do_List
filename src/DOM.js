@@ -81,6 +81,10 @@ function MainProjectDOM() {
     mainProjectHead.classList.add("mainProjectHead");
     mainProjectContainer.appendChild(mainProjectHead);
 
+    const mainProjectBody = document.createElement("div");
+    mainProjectBody.setAttribute("id", "mainProjectBody");
+    mainProjectContainer.appendChild(mainProjectBody);
+
     const mainProjectTitle = document.createElement("p");
     mainProjectTitle.classList.add("mainProjectTitle");
     mainProjectHead.appendChild(mainProjectTitle);
@@ -95,7 +99,6 @@ function MainProjectDOM() {
         mainProjectContainer.setAttribute("dataset-object", project.id);
         project.name = modalProjectNameInput.value
         mainProjectTitle.textContent = `${project.name}`;
-        console.log(mainProjectTitle);
 
         addTodoButton.addEventListener("click", () => {
             todoDialog.showModal();
@@ -120,13 +123,16 @@ function AppendTodoCard() {
             project.TodoArray.forEach((todo) => {
 
                 const TodoCard = document.createElement("div");
+                TodoCard.classList.add("TodoCard")
                 mainProjectContainer.appendChild(TodoCard);
 
 
                 const cardTodoTitle = document.createElement("p");
+                cardTodoTitle.classList.add("cardTodoTitle");
                 TodoCard.appendChild(cardTodoTitle);
 
                 const cardTodoDate = document.createElement("div");
+                cardTodoDate.classList.add("cardTodoDate");
                 TodoCard.appendChild(cardTodoDate);
 
 
@@ -136,6 +142,9 @@ function AppendTodoCard() {
                 todo.dueDate = modalTodoDateInput.value;
                 cardTodoDate.textContent = `${todo.dueDate}`;
 
+                console.log(project.TodoArray);
+                console.log(todo.id)
+                console.log(project.id)
             })
         })
 
