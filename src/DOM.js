@@ -1,5 +1,5 @@
-import {ProjectArray, Project} from "./Projects.js";
-import {Todo} from "./Todo.js";
+import {ProjectArray, Project} from "./ProjectObject.js";
+import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
 
 export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, MainProjectDOM, AppendTodoCard}
@@ -9,6 +9,9 @@ const mainContent = document.querySelector("#mainContent");
 const mainProjectContainer = document.createElement("div");
 mainProjectContainer.classList.add("mainProjectContainer");
 mainContent.appendChild(mainProjectContainer);
+
+const mainProjectBody = document.createElement("div");
+mainProjectBody.setAttribute("id", "mainProjectBody");
 
 const addSidebarProjects = document.querySelector("#addProjects");
 
@@ -43,6 +46,7 @@ function ProjectModalDOM() {
         projectDialog.close();
         ProjectSidebarDOM();
         MainProjectDOM();
+        console.log(ProjectArray)
     })
 }
 
@@ -64,11 +68,11 @@ function ProjectSidebarDOM() {
     ProjectArray.push(newProject);
 
     ProjectArray.forEach((project) => {
-        project.name = modalProjectNameInput.value;
         sidebarProject.textContent = `${project.name}`;
-        sidebarProjectContainer.setAttribute("dataset-object", `a${project.id}`);
+        sidebarProjectContainer.setAttribute("dataset-project", `${project.id}`);
    
     });
+    console.log(ProjectArray)
 
     
 }
@@ -81,8 +85,6 @@ function MainProjectDOM() {
     mainProjectHead.classList.add("mainProjectHead");
     mainProjectContainer.appendChild(mainProjectHead);
 
-    const mainProjectBody = document.createElement("div");
-    mainProjectBody.setAttribute("id", "mainProjectBody");
     mainProjectContainer.appendChild(mainProjectBody);
 
     const mainProjectTitle = document.createElement("p");
@@ -96,8 +98,7 @@ function MainProjectDOM() {
     
 
     ProjectArray.forEach((project) => {
-        mainProjectContainer.setAttribute("dataset-object", project.id);
-        project.name = modalProjectNameInput.value
+        mainProjectContainer.setAttribute("dataset-project", project.id);
         mainProjectTitle.textContent = `${project.name}`;
 
         addTodoButton.addEventListener("click", () => {
@@ -118,27 +119,28 @@ function AppendTodoCard() {
 
         e.preventDefault()
 
-        mainProjectBody.innerHTML = "";
-
         ProjectArray.forEach((project) => {
             const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput, modalTodoPriorityInput.value);
             project.TodoArray.push(newTodo);
 
+
+            const TodoCard = document.createElement("div");
+            TodoCard.classList.add("TodoCard")
+            mainProjectContainer.appendChild(TodoCard);
+
+
+            const cardTodoTitle = document.createElement("p");
+            cardTodoTitle.classList.add("cardTodoTitle");
+            TodoCard.appendChild(cardTodoTitle);
+
+            const cardTodoDate = document.createElement("div");
+            cardTodoDate.classList.add("cardTodoDate");
+            TodoCard.appendChild(cardTodoDate);
+
+
             project.TodoArray.forEach((todo) => {
 
-                const TodoCard = document.createElement("div");
-                TodoCard.classList.add("TodoCard")
-                mainProjectContainer.appendChild(TodoCard);
-
-
-                const cardTodoTitle = document.createElement("p");
-                cardTodoTitle.classList.add("cardTodoTitle");
-                TodoCard.appendChild(cardTodoTitle);
-
-                const cardTodoDate = document.createElement("div");
-                cardTodoDate.classList.add("cardTodoDate");
-                TodoCard.appendChild(cardTodoDate);
-
+                TodoCard.setAttribute("dataset-todo" ,todo.id);
 
                 todo.title = modalTodoTitleInput.value;
                 cardTodoTitle.textContent = `${todo.title}`;
@@ -146,10 +148,8 @@ function AppendTodoCard() {
                 todo.dueDate = modalTodoDateInput.value;
                 cardTodoDate.textContent = `${todo.dueDate}`;
 
-                console.log(project.TodoArray);
-                console.log(todo.id)
-                console.log(project.id)
             })
+
         })
 
         todoDialog.close();
