@@ -2,7 +2,7 @@ import {ProjectArray, Project, getProject} from "./ProjectObject.js";
 import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
 
-export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, MainProjectDOM, AppendTodoCard}
+export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, AppendTodoCard}
 
 const mainContent = document.querySelector("#mainContent");
 
@@ -45,7 +45,6 @@ function ProjectModalDOM() {
         e.preventDefault();
         projectDialog.close();
         ProjectSidebarDOM();
-        MainProjectDOM();
         console.log(ProjectArray)
     })
 }
@@ -72,45 +71,48 @@ function ProjectSidebarDOM() {
         sidebarProjectContainer.setAttribute("id", project.id);
    
     });
-    console.log(ProjectArray)
 
-    
-}
+    sidebarProjectContainer.addEventListener("click", () => {
+        ProjectArray.forEach((project) => {
+            if (project.id === sidebarProjectContainer.getAttribute("id")){
+                const projectClicked = project;
 
-function MainProjectDOM() {
 
-    mainProjectContainer.innerHTML = "";
+                mainProjectContainer.innerHTML = "";
 
-    const mainProjectHead = document.createElement("div");
-    mainProjectHead.classList.add("mainProjectHead");
-    mainProjectContainer.appendChild(mainProjectHead);
+                const mainProjectHead = document.createElement("div");
+                mainProjectHead.classList.add("mainProjectHead");
+                mainProjectContainer.appendChild(mainProjectHead);
 
-    mainProjectContainer.appendChild(mainProjectBody);
+                mainProjectContainer.appendChild(mainProjectBody);
 
-    const mainProjectTitle = document.createElement("p");
-    mainProjectTitle.classList.add("mainProjectTitle");
-    mainProjectHead.appendChild(mainProjectTitle);
+                const mainProjectTitle = document.createElement("p");
+                mainProjectTitle.classList.add("mainProjectTitle");
+                mainProjectHead.appendChild(mainProjectTitle);
 
-    const addTodoButton = document.createElement("button");
-    addTodoButton.classList.add("addTodoButton");
-    mainProjectHead.appendChild(addTodoButton);
-    addTodoButton.textContent = "+ Add Todo"
-    
+                const addTodoButton = document.createElement("button");
+                addTodoButton.classList.add("addTodoButton");
+                mainProjectHead.appendChild(addTodoButton);
+                addTodoButton.textContent = "+ Add Todo";
 
-    ProjectArray.forEach((project) => {
-        mainProjectContainer.setAttribute("id", project.id);
-        mainProjectTitle.textContent = `${project.name}`;
+                mainProjectContainer.setAttribute("id", projectClicked.id)
+                mainProjectTitle.textContent = `${projectClicked.name}`;
 
-        addTodoButton.addEventListener("click", () => {
-            todoDialog.showModal();
-
+                addTodoButton.addEventListener("click", () => {
+                        todoDialog.showModal();
+                })
+            }
         })
-
+   
+        
     })
 
-    return mainProjectBody
-
 }
+
+    
+    
+
+
 
 
 function AppendTodoCard() {
@@ -119,6 +121,7 @@ function AppendTodoCard() {
 
         e.preventDefault()
 
+        // Cannot loop through Project Array as it affects TodoArray
         ProjectArray.forEach((project) => {
 
         
@@ -153,7 +156,7 @@ function AppendTodoCard() {
 
             })
 
-            console.log(project.TodoArray)
+            
         })
 
         todoDialog.close();
