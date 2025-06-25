@@ -123,38 +123,39 @@ function AppendTodoCard() {
 
         // Cannot loop through Project Array as it affects TodoArray
         ProjectArray.forEach((project) => {
+            if (project.id === mainProjectContainer.getAttribute("id")){
+                const todoProjectClicked = project;
 
-        
-
-            const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput, modalTodoPriorityInput.value);
-            project.TodoArray.push(newTodo);
-
-
-            const TodoCard = document.createElement("div");
-            TodoCard.classList.add("TodoCard")
-            mainProjectContainer.appendChild(TodoCard);
+                const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput, modalTodoPriorityInput.value);
+                todoProjectClicked.TodoArray.push(newTodo);
 
 
-            const cardTodoTitle = document.createElement("p");
-            cardTodoTitle.classList.add("cardTodoTitle");
-            TodoCard.appendChild(cardTodoTitle);
-
-            const cardTodoDate = document.createElement("div");
-            cardTodoDate.classList.add("cardTodoDate");
-            TodoCard.appendChild(cardTodoDate);
+                const TodoCard = document.createElement("div");
+                TodoCard.classList.add("TodoCard")
+                mainProjectContainer.appendChild(TodoCard);
 
 
-            project.TodoArray.forEach((todo) => {
+                const cardTodoTitle = document.createElement("p");
+                cardTodoTitle.classList.add("cardTodoTitle");
+                TodoCard.appendChild(cardTodoTitle);
 
-                TodoCard.setAttribute("dataset-todo" ,todo.id);
+                const cardTodoDate = document.createElement("div");
+                cardTodoDate.classList.add("cardTodoDate");
+                TodoCard.appendChild(cardTodoDate);
 
-                todo.title = modalTodoTitleInput.value;
-                cardTodoTitle.textContent = `${todo.title}`;
 
-                todo.dueDate = modalTodoDateInput.value;
-                cardTodoDate.textContent = `${todo.dueDate}`;
+                project.TodoArray.forEach((todo) => {
+
+                    TodoCard.setAttribute("dataset-todo" ,todo.id);
+
+                    todo.title = modalTodoTitleInput.value;
+                    cardTodoTitle.textContent = `${todo.title}`;
+
+                    todo.dueDate = modalTodoDateInput.value;
+                    cardTodoDate.textContent = `${todo.dueDate}`;
 
             })
+            }
 
             
         })
