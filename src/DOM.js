@@ -1,4 +1,4 @@
-import {ProjectArray, Project} from "./ProjectObject.js";
+import {ProjectArray, Project, getProject} from "./ProjectObject.js";
 import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
 
@@ -69,7 +69,7 @@ function ProjectSidebarDOM() {
 
     ProjectArray.forEach((project) => {
         sidebarProject.textContent = `${project.name}`;
-        sidebarProjectContainer.setAttribute("dataset-project", `${project.id}`);
+        sidebarProjectContainer.setAttribute("id", project.id);
    
     });
     console.log(ProjectArray)
@@ -98,7 +98,7 @@ function MainProjectDOM() {
     
 
     ProjectArray.forEach((project) => {
-        mainProjectContainer.setAttribute("dataset-project", project.id);
+        mainProjectContainer.setAttribute("id", project.id);
         mainProjectTitle.textContent = `${project.name}`;
 
         addTodoButton.addEventListener("click", () => {
@@ -120,6 +120,9 @@ function AppendTodoCard() {
         e.preventDefault()
 
         ProjectArray.forEach((project) => {
+
+        
+
             const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput, modalTodoPriorityInput.value);
             project.TodoArray.push(newTodo);
 
@@ -150,6 +153,7 @@ function AppendTodoCard() {
 
             })
 
+            console.log(project.TodoArray)
         })
 
         todoDialog.close();

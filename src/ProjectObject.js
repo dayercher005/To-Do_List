@@ -1,6 +1,14 @@
-export {ProjectArray, Project}
+export {ProjectArray, Project, getProject}
 
 const ProjectArray = [];
+
+function getProject(projectID){
+    ProjectArray.forEach((project) => {
+        if (project.id == projectID){
+            return project;
+        }
+    })
+}
 
 class Project{
 
