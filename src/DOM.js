@@ -82,6 +82,7 @@ function ProjectSidebarDOM() {
                     const projectClicked = project;
 
                     mainProjectContainer.innerHTML = "";
+                    mainProjectBody.innerHTML = "";
 
                     const mainProjectHead = document.createElement("div");
                     mainProjectHead.classList.add("mainProjectHead");
@@ -136,27 +137,32 @@ function AppendTodoCard() {
 
                 const TodoCard = document.createElement("div");
                 TodoCard.classList.add("TodoCard")
-                mainProjectContainer.appendChild(TodoCard);
+                mainProjectBody.appendChild(TodoCard);
+
+                const TodoCardContent = document.createElement("div");
+                TodoCardContent.classList.add("TodoCardContent");
+                TodoCard.appendChild(TodoCardContent);
+
 
                 const cardTodoTitle = document.createElement("p");
                 cardTodoTitle.classList.add("cardTodoTitle");
-                TodoCard.appendChild(cardTodoTitle);
+                TodoCardContent.appendChild(cardTodoTitle);
 
                 const cardTodoDate = document.createElement("div");
                 cardTodoDate.classList.add("cardTodoDate");
-                TodoCard.appendChild(cardTodoDate);
+                TodoCardContent.appendChild(cardTodoDate);
 
                 todoProjectClicked.TodoArray.forEach((todo) => {
 
                     TodoCard.setAttribute("dataset-todo" ,todo.id);
                     
-                    cardTodoTitle.textContent = `${todo.title}`;
+                    cardTodoTitle.textContent = `Title: ${todo.title}`;
     
-                    cardTodoDate.textContent = `${todo.dueDate}`;
+                    cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
 
-                    if (modalTodoPriorityInput.value === "Urgent"){
+                    if (todo.priority === "Urgent"){
                         TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
-                    } else {
+                    } else if(todo.priority === "Not Urgent") {
                         TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
                     }
 
@@ -180,21 +186,28 @@ function TodoRedisplay() {
             TodoCard.classList.add("TodoCard")
             mainProjectContainer.appendChild(TodoCard);
 
+            const TodoCardContent = document.createElement("div");
+            TodoCardContent.classList.add("TodoCardContent");
+            TodoCard.appendChild(TodoCardContent);
 
             const cardTodoTitle = document.createElement("p");
             cardTodoTitle.classList.add("cardTodoTitle");
-            TodoCard.appendChild(cardTodoTitle);
+            TodoCardContent.appendChild(cardTodoTitle);
 
             const cardTodoDate = document.createElement("div");
             cardTodoDate.classList.add("cardTodoDate");
-            TodoCard.appendChild(cardTodoDate);
+            TodoCardContent.appendChild(cardTodoDate);
 
-                
+            cardTodoTitle.textContent = `Title: ${todo.title}`;
 
-            cardTodoTitle.textContent = `${todo.title}`;
-
-            cardTodoDate.textContent = `${todo.dueDate}`;
+            cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
             console.log(currentProject.TodoArray)
+
+            if (todo.priority === "Urgent"){
+                TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
+            } else if (todo.priority === "Not Urgent"){
+                TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
+            }
         })
                 
             
@@ -203,5 +216,5 @@ function TodoRedisplay() {
 }
 
 function RemoveTodo() {
-    
+
 }

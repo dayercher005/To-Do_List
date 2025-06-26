@@ -188,6 +188,10 @@ button.addTodoButton{
     height: 40px;
 }
 
+div#mainProjectBody{
+    background-color: var(--white-color);
+}
+
 /* CSS Code for Todo Card Styling */
 
 p.cardTodoTitle, div.cardTodoDate{
@@ -207,3 +211,6 @@ div.TodoCard{
     padding: 10px;
 }
 
+div.TodoCardContent{
+    background-color: var(--white-color);
+}
