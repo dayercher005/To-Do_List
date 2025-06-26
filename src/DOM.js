@@ -53,80 +53,91 @@ function ProjectModalDOM() {
 
 function ProjectSidebarDOM() {
 
-    const sidebarProjectContainer = document.createElement("div");
-    sidebarProjectContainer.classList.add("sidebarProjectContainer");
+    
 
-    const sidebarProject = document.createElement("p");
-    sidebarProject.classList.add("sidebarProject");
-    sidebarProjectContainer.appendChild(sidebarProject);
+        const sidebarProjectContainer = document.createElement("div");
+        sidebarProjectContainer.classList.add("sidebarProjectContainer");
 
-    const ProjectList = document.querySelector("#ProjectList");
-    ProjectList.appendChild(sidebarProjectContainer);
+        const sidebarProject = document.createElement("p");
+        sidebarProject.classList.add("sidebarProject");
+        sidebarProjectContainer.appendChild(sidebarProject);
 
-    const newProject = new Project(modalProjectNameInput.value);
-    ProjectArray.push(newProject);
+        const ProjectList = document.querySelector("#ProjectList");
+        ProjectList.appendChild(sidebarProjectContainer);
 
-    ProjectArray.forEach((project) => {
-        sidebarProject.textContent = `${project.name}`;
-        sidebarProjectContainer.setAttribute("id", project.id);
-   
-    });
+        const newProject = new Project(modalProjectNameInput.value);
+        ProjectArray.push(newProject);
 
-    sidebarProjectContainer.addEventListener("click", () => {
         ProjectArray.forEach((project) => {
-            if (project.id === sidebarProjectContainer.getAttribute("id")){
-                const projectClicked = project;
+            sidebarProject.textContent = `${project.name}`;
+            sidebarProjectContainer.setAttribute("id", project.id);
+
+        });
 
 
-                mainProjectContainer.innerHTML = "";
+        
+    
 
-                const mainProjectHead = document.createElement("div");
-                mainProjectHead.classList.add("mainProjectHead");
-                mainProjectContainer.appendChild(mainProjectHead);
+        sidebarProjectContainer.addEventListener("click", () => {
+        
+            ProjectArray.forEach((project) => {
+                if (project.id === sidebarProjectContainer.getAttribute("id")){
+                    const projectClicked = project;
 
-                mainProjectContainer.appendChild(mainProjectBody);
+                    mainProjectContainer.innerHTML = "";
 
-                const mainProjectTitle = document.createElement("p");
-                mainProjectTitle.classList.add("mainProjectTitle");
-                mainProjectHead.appendChild(mainProjectTitle);
+                    const mainProjectHead = document.createElement("div");
+                    mainProjectHead.classList.add("mainProjectHead");
+                    mainProjectContainer.appendChild(mainProjectHead);
 
-                const addTodoButton = document.createElement("button");
-                addTodoButton.classList.add("addTodoButton");
-                mainProjectHead.appendChild(addTodoButton);
-                addTodoButton.textContent = "+ Add Todo";
+                    mainProjectContainer.appendChild(mainProjectBody);
 
-                mainProjectContainer.setAttribute("id", projectClicked.id)
-                mainProjectTitle.textContent = `${projectClicked.name}`;
+                    const mainProjectTitle = document.createElement("p");
+                    mainProjectTitle.classList.add("mainProjectTitle");
+                    mainProjectHead.appendChild(mainProjectTitle);
 
-                addTodoButton.addEventListener("click", () => {
-                        todoDialog.showModal();
+                    const addTodoButton = document.createElement("button");
+                    addTodoButton.classList.add("addTodoButton");
+                    mainProjectHead.appendChild(addTodoButton);
+                    addTodoButton.textContent = "+ Add Todo";
+
+                    mainProjectContainer.setAttribute("id", projectClicked.id)
+                    mainProjectTitle.textContent = `${projectClicked.name}`;
+
+                    TodoRedisplay();
+
+                    addTodoButton.addEventListener("click", () => {
+                            todoDialog.showModal();
+
                 })
             }
         })
+     
+    
    
         
-    })
+        })
+    
 
 }
-
-    
-    
 
 
 
 
 function AppendTodoCard() {
+
     
     submitTodoDialog.addEventListener("click", (e) => {
 
-        e.preventDefault()
+     
+        e.preventDefault();
 
         // Cannot loop through Project Array as it affects TodoArray
         ProjectArray.forEach((project) => {
             if (project.id === mainProjectContainer.getAttribute("id")){
                 const todoProjectClicked = project;
 
-                const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput, modalTodoPriorityInput.value);
+                const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput.value, modalTodoPriorityInput.value);
                 todoProjectClicked.TodoArray.push(newTodo);
 
 
@@ -144,23 +155,55 @@ function AppendTodoCard() {
                 TodoCard.appendChild(cardTodoDate);
 
 
-                project.TodoArray.forEach((todo) => {
+                todoProjectClicked.TodoArray.forEach((todo) => {
 
                     TodoCard.setAttribute("dataset-todo" ,todo.id);
-
-                    todo.title = modalTodoTitleInput.value;
+                    
                     cardTodoTitle.textContent = `${todo.title}`;
-
-                    todo.dueDate = modalTodoDateInput.value;
+    
                     cardTodoDate.textContent = `${todo.dueDate}`;
 
-            })
+                })
+
+                console.log(todoProjectClicked.TodoArray)
             }
 
             
         })
 
+        
         todoDialog.close();
-        console.log(ProjectArray);
     })
 }
+
+function TodoRedisplay() {
+        ProjectArray.forEach((project) =>{
+            if (project.id === mainProjectContainer.getAttribute("id")){
+                const currentProject = project;
+
+                currentProject.TodoArray.forEach((todo) => {
+                    const TodoCard = document.createElement("div");
+                    TodoCard.classList.add("TodoCard")
+                    mainProjectContainer.appendChild(TodoCard);
+
+
+                    const cardTodoTitle = document.createElement("p");
+                    cardTodoTitle.classList.add("cardTodoTitle");
+                    TodoCard.appendChild(cardTodoTitle);
+
+                    const cardTodoDate = document.createElement("div");
+                    cardTodoDate.classList.add("cardTodoDate");
+                    TodoCard.appendChild(cardTodoDate);
+
+                
+
+                    cardTodoTitle.textContent = `${todo.title}`;
+
+                    cardTodoDate.textContent = `${todo.dueDate}`;
+                    console.log(currentProject.TodoArray)
+            })
+                
+            
+                }
+            })
+        }
