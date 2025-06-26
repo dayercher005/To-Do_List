@@ -161,5 +161,6 @@ function AppendTodoCard() {
         })
 
         todoDialog.close();
+        console.log(ProjectArray);
     })
 }
