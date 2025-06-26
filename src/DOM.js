@@ -1,4 +1,4 @@
-import {ProjectArray, Project, getProject} from "./ProjectObject.js";
+import {ProjectArray, Project} from "./ProjectObject.js";
 import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
 
@@ -52,8 +52,7 @@ function ProjectModalDOM() {
 
 
 function ProjectSidebarDOM() {
-
-    
+   
 
         const sidebarProjectContainer = document.createElement("div");
         sidebarProjectContainer.classList.add("sidebarProjectContainer");
@@ -73,9 +72,7 @@ function ProjectSidebarDOM() {
             sidebarProjectContainer.setAttribute("id", project.id);
 
         });
-
-
-        
+  
     
 
         sidebarProjectContainer.addEventListener("click", () => {
@@ -111,13 +108,9 @@ function ProjectSidebarDOM() {
 
                 })
             }
-        })
-     
-    
-   
+        })  
         
-        })
-    
+    })    
 
 }
 
@@ -145,7 +138,6 @@ function AppendTodoCard() {
                 TodoCard.classList.add("TodoCard")
                 mainProjectContainer.appendChild(TodoCard);
 
-
                 const cardTodoTitle = document.createElement("p");
                 cardTodoTitle.classList.add("cardTodoTitle");
                 TodoCard.appendChild(cardTodoTitle);
@@ -153,7 +145,6 @@ function AppendTodoCard() {
                 const cardTodoDate = document.createElement("div");
                 cardTodoDate.classList.add("cardTodoDate");
                 TodoCard.appendChild(cardTodoDate);
-
 
                 todoProjectClicked.TodoArray.forEach((todo) => {
 
@@ -163,47 +154,54 @@ function AppendTodoCard() {
     
                     cardTodoDate.textContent = `${todo.dueDate}`;
 
+                    if (modalTodoPriorityInput.value === "Urgent"){
+                        TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
+                    } else {
+                        TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
+                    }
+
                 })
 
-                console.log(todoProjectClicked.TodoArray)
             }
-
-            
+     
         })
-
         
         todoDialog.close();
     })
 }
 
 function TodoRedisplay() {
-        ProjectArray.forEach((project) =>{
-            if (project.id === mainProjectContainer.getAttribute("id")){
-                const currentProject = project;
+    ProjectArray.forEach((project) =>{
+        if (project.id === mainProjectContainer.getAttribute("id")){
+            const currentProject = project;
 
-                currentProject.TodoArray.forEach((todo) => {
-                    const TodoCard = document.createElement("div");
-                    TodoCard.classList.add("TodoCard")
-                    mainProjectContainer.appendChild(TodoCard);
+        currentProject.TodoArray.forEach((todo) => {
+            const TodoCard = document.createElement("div");
+            TodoCard.classList.add("TodoCard")
+            mainProjectContainer.appendChild(TodoCard);
 
 
-                    const cardTodoTitle = document.createElement("p");
-                    cardTodoTitle.classList.add("cardTodoTitle");
-                    TodoCard.appendChild(cardTodoTitle);
+            const cardTodoTitle = document.createElement("p");
+            cardTodoTitle.classList.add("cardTodoTitle");
+            TodoCard.appendChild(cardTodoTitle);
 
-                    const cardTodoDate = document.createElement("div");
-                    cardTodoDate.classList.add("cardTodoDate");
-                    TodoCard.appendChild(cardTodoDate);
+            const cardTodoDate = document.createElement("div");
+            cardTodoDate.classList.add("cardTodoDate");
+            TodoCard.appendChild(cardTodoDate);
 
                 
 
-                    cardTodoTitle.textContent = `${todo.title}`;
+            cardTodoTitle.textContent = `${todo.title}`;
 
-                    cardTodoDate.textContent = `${todo.dueDate}`;
-                    console.log(currentProject.TodoArray)
-            })
+            cardTodoDate.textContent = `${todo.dueDate}`;
+            console.log(currentProject.TodoArray)
+        })
                 
             
-                }
-            })
         }
+    })
+}
+
+function RemoveTodo() {
+    
+}

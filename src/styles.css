@@ -205,6 +205,5 @@ div.TodoCard{
     background-color: var(--white-color);
     border: 3px solid black;
     padding: 10px;
-    border-left: 10px solid hsl(0, 98%, 55%)
 }
 
