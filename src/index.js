@@ -7,3 +7,4 @@ import {AppendProjectSidebar, ProjectModalDOM, AppendTodoCard} from "./DOM.js"
 AppendProjectSidebar();
 ProjectModalDOM();
 AppendTodoCard();
+

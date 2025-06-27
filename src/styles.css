@@ -211,6 +211,16 @@ div.TodoCard{
     padding: 10px;
 }
 
-div.TodoCardContent{
+div.TodoCardContent, div.TodoSVGs, .svg{
     background-color: var(--white-color);
 }
+
+.svg{
+    width: 40px;
+    height: 45px;
+}
+
+.svg:hover{
+    background-color: hsl(0, 6%, 90%);
+}
+

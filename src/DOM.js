@@ -1,6 +1,7 @@
 import {ProjectArray, Project} from "./ProjectObject.js";
 import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
+import editImage from "../images/edit.png";
 
 export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, AppendTodoCard}
 
@@ -25,9 +26,6 @@ const modalTodoDescriptionInput = document.querySelector("#modalTodoDescriptionI
 const modalTodoDateInput = document.querySelector("#modalTodoDateInput");
 const modalTodoPriorityInput = document.querySelector("#modalTodoPriorityInput");
 const submitTodoDialog = document.querySelector("#submitTodoDialog");
-
-const bin = document.createElement("img");
-bin.src = binImage;
 
 
 function AppendProjectSidebar() {
@@ -152,9 +150,50 @@ function AppendTodoCard() {
                 cardTodoDate.classList.add("cardTodoDate");
                 TodoCardContent.appendChild(cardTodoDate);
 
+                const todoCheckbox = document.createElement("input");
+                todoCheckbox.setAttribute("type", "checkbox");      
+                TodoCardContent.appendChild(todoCheckbox);
+
+                const TodoSVGs = document.createElement("div");
+                TodoSVGs.classList.add("TodoSVGs");
+                TodoCard.appendChild(TodoSVGs);
+            
+                const bin = document.createElement("img");
+                bin.src = binImage;
+                bin.classList.add("svg");
+                TodoSVGs.appendChild(bin);
+            
+                const edit = document.createElement("img");
+                edit.src = editImage;
+                edit.classList.add("svg");
+                TodoSVGs.appendChild(edit);
+
+                if (todoCheckbox.checked) {
+                cardTodoTitle.style.textDecoration = "line-through";
+                cardTodoDate.style.textDecoration = "line-through";
+                }
+
+                bin.addEventListener("click", () => {
+                ProjectArray.forEach((project) =>{
+                    if (project.id === mainProjectContainer.getAttribute("id")){
+                        const currentProject = project;
+
+                        currentProject.TodoArray.forEach((todo) => {
+                            if(todo.id === bin.getAttribute("id")){
+                                const currentTodo = todo;
+                                const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
+                                currentProject.TodoArray.splice(1, currentTodoIndex);
+                                
+                                }
+                            })
+                        }
+                    })
+                
+                })
+
                 todoProjectClicked.TodoArray.forEach((todo) => {
 
-                    TodoCard.setAttribute("dataset-todo" ,todo.id);
+                    TodoCard.setAttribute("id" ,todo.id);
                     
                     cardTodoTitle.textContent = `Title: ${todo.title}`;
     
@@ -177,6 +216,9 @@ function AppendTodoCard() {
 }
 
 function TodoRedisplay() {
+    
+    
+
     ProjectArray.forEach((project) =>{
         if (project.id === mainProjectContainer.getAttribute("id")){
             const currentProject = project;
@@ -198,16 +240,59 @@ function TodoRedisplay() {
             cardTodoDate.classList.add("cardTodoDate");
             TodoCardContent.appendChild(cardTodoDate);
 
+            const todoCheckbox = document.createElement("input");
+            todoCheckbox.setAttribute("type", "checkbox");      
+            TodoCardContent.appendChild(todoCheckbox);
+
+            const TodoSVGs = document.createElement("div");
+            TodoSVGs.classList.add("TodoSVGs");
+            TodoCard.appendChild(TodoSVGs);
+
+            const bin = document.createElement("img");
+            bin.src = binImage;
+            bin.classList.add("svg");
+            bin.setAttribute("id", todo.id)
+            TodoSVGs.appendChild(bin);
+            
+            const edit = document.createElement("img");
+            edit.src = editImage;
+            edit.classList.add("svg");
+            edit.setAttribute("id", todo.id)
+            TodoSVGs.appendChild(edit);
+
             cardTodoTitle.textContent = `Title: ${todo.title}`;
 
             cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
             console.log(currentProject.TodoArray)
 
-            if (todo.priority === "Urgent"){
+            if (todo.priority === "Urgent") {
                 TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
             } else if (todo.priority === "Not Urgent"){
                 TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
             }
+
+            if (todoCheckbox.checked) {
+                cardTodoTitle.style.textDecoration = "line-through";
+                cardTodoDate.style.textDecoration = "line-through";
+            }
+
+            bin.addEventListener("click", () => {
+            ProjectArray.forEach((project) =>{
+                if (project.id === mainProjectContainer.getAttribute("id")){
+                    const currentProject = project;
+
+                    currentProject.TodoArray.forEach((todo) => {
+                        if(todo.id === bin.getAttribute("id")){
+                            const currentTodo = todo;
+                            const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
+                            currentProject.TodoArray.splice(1, currentTodoIndex);
+                            }
+                        })
+                    }
+                })
+            
+            })
+
         })
                 
             
@@ -215,6 +300,3 @@ function TodoRedisplay() {
     })
 }
 
-function RemoveTodo() {
-
-}
