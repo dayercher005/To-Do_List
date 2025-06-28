@@ -3,7 +3,7 @@ import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
 import editImage from "../images/edit.png";
 
-export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, AppendTodoCard}
+export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, AppendTodoCard, TodoListEventListeners}
 
 const mainContent = document.querySelector("#mainContent");
 
@@ -34,7 +34,6 @@ function AppendProjectSidebar() {
         projectDialog.showModal();
     })
 
-    return projectDialog;
 }
 
 function ProjectModalDOM() { 
@@ -43,7 +42,6 @@ function ProjectModalDOM() {
         e.preventDefault();
         projectDialog.close();
         ProjectSidebarDOM();
-        console.log(ProjectArray)
     })
 }
 
@@ -300,3 +298,16 @@ function TodoRedisplay() {
     })
 }
 
+
+function TodoListEventListeners() {
+
+    addSidebarProjects.addEventListener("click", (e) => {
+        e.preventDefault();
+        AppendProjectSidebar();
+    })
+
+    submitProjectDialog.addEventListener("click", (e) => {
+        e.preventDefault();
+        ProjectModalDOM();
+    })
+}
