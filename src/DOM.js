@@ -76,11 +76,14 @@ function ProjectSidebar() {
 
         sidebarProjectContainer.addEventListener("click", () => {
             ProjectArray.forEach((project) => {
-                if (project.id == sidebarProjectContainer.getAttribute("dataset-project")){
+                if (project.id === sidebarProjectContainer.getAttribute("dataset-project")){
                     const currentProject = project
 
                     const mainProject = MainProject();
-                    
+                    mainProject.mainProjectContainer.setAttribute("dataset-project", currentProject.id);
+                    mainProject.mainProjectTitle.textContent = currentProject.name;
+                    mainProject.MainProjectDisplay();
+                    mainProject.MainProjectClicker();
                 }
             })
         })
@@ -110,7 +113,10 @@ function MainProject() {
     const addTodoButton = document.createElement("button");
     addTodoButton.classList.add("addTodoButton");
 
+
     const MainProjectDisplay = () => {
+
+        mainContent.innerHTML = "";
 
         mainContent.appendChild(mainProjectContainer);
 
@@ -126,17 +132,15 @@ function MainProject() {
 
     }
 
-    const MainProjectAttribute = () => {
-        
-        
+    const MainProjectClicker = () => {
+
+        addTodoButton.addEventListener("click", () => {
+            todoDialog.showModal();
+
+        })
     }
 
-    addTodoButton.addEventListener("click", () => {
-        todoDialog.showModal();
-
-    })
-
-    return {MainProjectDisplay}
+    return {MainProjectDisplay, mainProjectContainer, mainProjectTitle, MainProjectClicker}
 
 }
 
@@ -144,15 +148,12 @@ function MainProject() {
 
 function AppendTodoCard() {
 
+    const mainProject = MainProject();
     
-    submitTodoDialog.addEventListener("click", (e) => {
-
-     
-        e.preventDefault();
 
         // Cannot loop through Project Array as it affects TodoArray
         ProjectArray.forEach((project) => {
-            if (project.id === mainProjectContainer.getAttribute("id")){
+            if (project.id === mainProject.mainProjectContainer.getAttribute("dataset-project")){
                 const todoProjectClicked = project;
 
                 const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput.value, modalTodoPriorityInput.value);
@@ -201,7 +202,7 @@ function AppendTodoCard() {
 
                 bin.addEventListener("click", () => {
                 ProjectArray.forEach((project) =>{
-                    if (project.id === mainProjectContainer.getAttribute("id")){
+                    if (project.id === mainProject.mainProjectContainer.getAttribute("dataset-project")){
                         const currentProject = project;
 
                         currentProject.TodoArray.forEach((todo) => {
@@ -235,7 +236,7 @@ function AppendTodoCard() {
 
             }
      
-        })
+       
         
         todoDialog.close();
     })
@@ -243,7 +244,7 @@ function AppendTodoCard() {
 
 function TodoRedisplay() {
     
-    
+    const mainProject = MainProject();
 
     ProjectArray.forEach((project) =>{
         if (project.id === mainProjectContainer.getAttribute("id")){
@@ -346,8 +347,13 @@ function TodoListEventListeners() {
         
     });
 
-    
-    
+
+    submitTodoDialog.addEventListener("click", (e) => {
+        e.preventDefault();
+        AppendTodoCard();
+
+        console.log(ProjectArray)
+    })
     
 
 }
