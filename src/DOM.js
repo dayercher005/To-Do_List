@@ -1,15 +1,13 @@
-import {ProjectArray, Project} from "./ProjectObject.js";
+import {ProjectArray, Project, ProjectArrayHandler} from "./ProjectObject.js";
 import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
 import editImage from "../images/edit.png";
 
-export {AppendProjectSidebar, ProjectModalDOM, ProjectSidebarDOM, AppendTodoCard, TodoListEventListeners}
+export {modalProjectNameInput}
+export {TodoListEventListeners}
 
 const mainContent = document.querySelector("#mainContent");
 
-const mainProjectContainer = document.createElement("div");
-mainProjectContainer.classList.add("mainProjectContainer");
-mainContent.appendChild(mainProjectContainer);
 
 const mainProjectBody = document.createElement("div");
 mainProjectBody.setAttribute("id", "mainProjectBody");
@@ -28,89 +26,119 @@ const modalTodoPriorityInput = document.querySelector("#modalTodoPriorityInput")
 const submitTodoDialog = document.querySelector("#submitTodoDialog");
 
 
-function AppendProjectSidebar() {
 
-    addSidebarProjects.addEventListener("click", () => {
-        projectDialog.showModal();
-    })
+function ShowProjectModal() {
 
+    projectDialog.showModal();
+    
 }
 
-function ProjectModalDOM() { 
+function CloseProjectModal() { 
 
-    submitProjectDialog.addEventListener("click", (e) => {
-        e.preventDefault();
-        projectDialog.close();
-        ProjectSidebarDOM();
-    })
-}
-
-
-
-function ProjectSidebarDOM() {
+    projectDialog.close();
    
+}
 
-        const sidebarProjectContainer = document.createElement("div");
-        sidebarProjectContainer.classList.add("sidebarProjectContainer");
 
-        const sidebarProject = document.createElement("p");
-        sidebarProject.classList.add("sidebarProject");
-        sidebarProjectContainer.appendChild(sidebarProject);
+
+function ProjectSidebar() {
+
+    const sidebarProjectContainer = document.createElement("div");
+    sidebarProjectContainer.classList.add("sidebarProjectContainer");
+
+    const sidebarProjectText = document.createElement("p");
+    sidebarProjectText.classList.add("sidebarProject");
+
+    const ProjectSidebarDisplay = () => {
+
+        sidebarProjectContainer.appendChild(sidebarProjectText);
 
         const ProjectList = document.querySelector("#ProjectList");
         ProjectList.appendChild(sidebarProjectContainer);
 
-        const newProject = new Project(modalProjectNameInput.value);
-        ProjectArray.push(newProject);
+        };
 
+
+    const ProjectSidebarArray = () => {
+        const newProject = ProjectArrayHandler();
+        newProject.AppendProjectArray();
+    }
+
+    const ProjectSidebarAttribute = () => {
+        
         ProjectArray.forEach((project) => {
-            sidebarProject.textContent = `${project.name}`;
-            sidebarProjectContainer.setAttribute("id", project.id);
+            sidebarProjectText.textContent = project.name;
+            sidebarProjectContainer.setAttribute("dataset-project", project.id);
+        })
+    }
 
-        });
-  
-    
+    const ProjectSidebarClicker = () => {
 
         sidebarProjectContainer.addEventListener("click", () => {
-        
             ProjectArray.forEach((project) => {
-                if (project.id === sidebarProjectContainer.getAttribute("id")){
-                    const projectClicked = project;
+                if (project.id == sidebarProjectContainer.getAttribute("dataset-project")){
+                    const currentProject = project
 
-                    mainProjectContainer.innerHTML = "";
-                    mainProjectBody.innerHTML = "";
+                    const mainProject = MainProject();
+                    
+                }
+            })
+        })
+    }
 
-                    const mainProjectHead = document.createElement("div");
-                    mainProjectHead.classList.add("mainProjectHead");
-                    mainProjectContainer.appendChild(mainProjectHead);
+    return {ProjectSidebarDisplay, ProjectSidebarArray, ProjectSidebarAttribute, ProjectSidebarClicker}
 
-                    mainProjectContainer.appendChild(mainProjectBody);
-
-                    const mainProjectTitle = document.createElement("p");
-                    mainProjectTitle.classList.add("mainProjectTitle");
-                    mainProjectHead.appendChild(mainProjectTitle);
-
-                    const addTodoButton = document.createElement("button");
-                    addTodoButton.classList.add("addTodoButton");
-                    mainProjectHead.appendChild(addTodoButton);
-                    addTodoButton.textContent = "+ Add Todo";
-
-                    mainProjectContainer.setAttribute("id", projectClicked.id)
-                    mainProjectTitle.textContent = `${projectClicked.name}`;
-
-                    TodoRedisplay();
-
-                    addTodoButton.addEventListener("click", () => {
-                            todoDialog.showModal();
-
-                })
-            }
-        })  
-        
-    })    
+            
 
 }
 
+
+function MainProject() {
+
+    const mainProjectContainer = document.createElement("div");
+    mainProjectContainer.classList.add("mainProjectContainer");
+
+    const mainProjectHead = document.createElement("div");
+    mainProjectHead.classList.add("mainProjectHead");
+
+    const mainProjectBody = document.createElement("div");
+    mainProjectBody.setAttribute("id", "mainProjectBody");
+
+    const mainProjectTitle = document.createElement("p");
+    mainProjectTitle.classList.add("mainProjectTitle");
+
+    const addTodoButton = document.createElement("button");
+    addTodoButton.classList.add("addTodoButton");
+
+    const MainProjectDisplay = () => {
+
+        mainContent.appendChild(mainProjectContainer);
+
+        mainProjectContainer.appendChild(mainProjectHead);
+
+        mainProjectContainer.appendChild(mainProjectBody);
+
+        mainProjectHead.appendChild(mainProjectTitle);
+
+        mainProjectHead.appendChild(addTodoButton);
+        addTodoButton.textContent = "+ Add Todo";
+     
+
+    }
+
+    const MainProjectAttribute = () => {
+        
+        
+    }
+
+    addTodoButton.addEventListener("click", () => {
+        todoDialog.showModal();
+
+    })
+
+    return {MainProjectDisplay}
+
+}
 
 
 
@@ -303,11 +331,23 @@ function TodoListEventListeners() {
 
     addSidebarProjects.addEventListener("click", (e) => {
         e.preventDefault();
-        AppendProjectSidebar();
-    })
+        ShowProjectModal();
+    });
 
     submitProjectDialog.addEventListener("click", (e) => {
         e.preventDefault();
-        ProjectModalDOM();
-    })
+        CloseProjectModal();
+        const projectSidebar = ProjectSidebar();
+        projectSidebar.ProjectSidebarArray();
+        projectSidebar.ProjectSidebarDisplay();
+        projectSidebar.ProjectSidebarAttribute();
+        projectSidebar.ProjectSidebarClicker();
+        console.log(ProjectArray);
+        
+    });
+
+    
+    
+    
+
 }

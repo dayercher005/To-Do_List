@@ -1,10 +1,7 @@
 import "./styles.css";
-import {AppendProjectSidebar, ProjectModalDOM, AppendTodoCard} from "./DOM.js"
+import {TodoListEventListeners} from "./DOM.js"
 
 
 
-
-AppendProjectSidebar();
-ProjectModalDOM();
-AppendTodoCard();
+TodoListEventListeners();
 
