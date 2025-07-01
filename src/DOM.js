@@ -230,6 +230,7 @@ function AppendTodoCard() {
                         TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
                     }
 
+                    TodoFunctionality();
                     
                 })
             
@@ -240,37 +241,43 @@ function AppendTodoCard() {
         
 
         const TodoFunctionality = () => {
-            console.log(ProjectArray)
-            if (todoCheckbox.checked) {
-                cardTodoTitle.style.textDecoration = "line-through";
-                cardTodoDate.style.textDecoration = "line-through";
-                } else {
-                    cardTodoTitle.style.textDecoration = "none";
+            let currentBoolean = true
+
+            todoCheckbox.addEventListener("click", () => {
+
+                if (currentBoolean == true){
+                    cardTodoDate.style.textDecoration = "line-through";
+                    cardTodoTitle.style.textDecoration = "line-through";
+                    currentBoolean = false
+                } else if (currentBoolean == false) {
                     cardTodoDate.style.textDecoration = "none";
+                    cardTodoTitle.style.textDecoration = "none";
+                    currentBoolean = true
                 }
+            })
 
-                bin.addEventListener("click", () => {
-                    ProjectArray.forEach((project) =>{
-                        if (project.id === currentProjectContainer.getAttribute("dataset-project")){
-                            const currentProject = project;
+            bin.addEventListener("click", () => {
+                ProjectArray.forEach((project) =>{
+                    if (project.id === currentProjectContainer.getAttribute("dataset-project")){
+                        const currentProject = project;
 
-                            currentProject.TodoArray.forEach((todo) => {
-                                if(todo.id === bin.getAttribute("id")){
-                                    const currentTodo = todo;
-                                    const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
-                                    currentProject.TodoArray.splice(1, currentTodoIndex);
-                                    console.log(ProjectArray);
-                                }
-                            })
-                        }
-                    })
-                
+                        currentProject.TodoArray.forEach((todo) => {
+                            if(todo.id === bin.getAttribute("id")){
+                                const currentTodo = todo;
+                                const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
+                                currentProject.TodoArray.splice(1, currentTodoIndex);
+                                console.log(ProjectArray);
+                            }
+                        })
+                    }
                 })
+                
+            })
         }
     
         
 
-    return {TodoCardDisplay, AppendTodoArray, TodoFunctionality}
+    return {TodoCardDisplay, AppendTodoArray}
 }
 
 function TodoRedisplay() {
@@ -383,7 +390,6 @@ function TodoListEventListeners() {
         const todoCard = AppendTodoCard();
         todoCard.AppendTodoArray();
         todoCard.TodoCardDisplay();
-        todoCard.TodoFunctionality();
     })
     
 
