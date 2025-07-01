@@ -194,7 +194,7 @@ div#mainProjectBody{
 
 /* CSS Code for Todo Card Styling */
 
-p.cardTodoTitle, div.cardTodoDate{
+span.cardTodoTitle, span.cardTodoDate{
     background-color: var(--white-color);
     color: var(--border-color);
     border-radius: 10px;
@@ -209,6 +209,11 @@ div.TodoCard{
     background-color: var(--white-color);
     border: 3px solid black;
     padding: 10px;
+}
+
+div.TodoCardContent{
+    display: flex;
+    flex-direction: column;
 }
 
 div.TodoCardContent, div.TodoSVGs, .svg{

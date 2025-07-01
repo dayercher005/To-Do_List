@@ -1,4 +1,6 @@
 import {modalProjectNameInput} from "./DOM.js"
+import {modalTodoTitleInput, modalTodoDescriptionInput, modalTodoDateInput, modalTodoPriorityInput} from "./DOM.js"
+import {Todo} from "./TodoObject.js"
 
 export {ProjectArray, Project, ProjectArrayHandler}
 
@@ -13,11 +15,13 @@ class Project{
         this.TodoArray = [];
     }
 
-    getID(){
-        return this.id
+    appendTodo(){
+        const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput.value, modalTodoPriorityInput.value);
+        this.TodoArray.push(newTodo);
     }
 
 }
+
 
 function ProjectArrayHandler() {
 
@@ -36,8 +40,7 @@ function ProjectArrayHandler() {
     }
 
     return {AppendProjectArray, getIndividualProject}
-    
-    
+
 }
 
 

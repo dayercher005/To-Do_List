@@ -3,7 +3,7 @@ import {Todo} from "./TodoObject.js";
 import binImage from "../images/archive.png";
 import editImage from "../images/edit.png";
 
-export {modalProjectNameInput}
+export {modalProjectNameInput, modalTodoTitleInput, modalTodoDescriptionInput, modalTodoDateInput, modalTodoPriorityInput}
 export {TodoListEventListeners}
 
 const mainContent = document.querySelector("#mainContent");
@@ -37,6 +37,18 @@ function CloseProjectModal() {
 
     projectDialog.close();
    
+}
+
+function ShowTodoModal() {
+
+    todoDialog.showModal();
+
+}
+
+function CloseTodoModal() {
+
+    todoDialog.close();
+
 }
 
 
@@ -128,7 +140,6 @@ function MainProject() {
 
         mainProjectHead.appendChild(addTodoButton);
         addTodoButton.textContent = "+ Add Todo";
-     
 
     }
 
@@ -140,7 +151,7 @@ function MainProject() {
         })
     }
 
-    return {MainProjectDisplay, mainProjectContainer, mainProjectTitle, MainProjectClicker}
+    return {MainProjectDisplay, mainProjectContainer, mainProjectTitle, mainProjectBody, MainProjectClicker}
 
 }
 
@@ -148,52 +159,77 @@ function MainProject() {
 
 function AppendTodoCard() {
 
-    const mainProject = MainProject();
+        const mainProject = MainProject();
+
+        const TodoCard = document.createElement("div");
+        TodoCard.classList.add("TodoCard")
+
+        const TodoCardContent = document.createElement("div");
+        TodoCardContent.classList.add("TodoCardContent");
+
+        const cardTodoTitle = document.createElement("p");
+        cardTodoTitle.classList.add("cardTodoTitle");
+
+        const cardTodoDate = document.createElement("div");
+        cardTodoDate.classList.add("cardTodoDate");
+
+        const todoCheckbox = document.createElement("input");
+        todoCheckbox.setAttribute("type", "checkbox");      
+
+        const TodoSVGs = document.createElement("div");
+        TodoSVGs.classList.add("TodoSVGs");
+            
+        const bin = document.createElement("img");
+        bin.src = binImage;
+        bin.classList.add("svg");
+            
+        const edit = document.createElement("img");
+        edit.src = editImage;
+        edit.classList.add("svg");
+
+        const TodoCardDisplay = () => {
+
+            mainProject.mainProjectBody.appendChild(TodoCard);
+
+            TodoCard.appendChild(TodoCardContent);
+
+            TodoCardContent.appendChild(cardTodoTitle);
+
+            TodoCardContent.appendChild(cardTodoDate);
+   
+            TodoCardContent.appendChild(todoCheckbox);
+
+            TodoCard.appendChild(TodoSVGs);
+            
+            TodoSVGs.appendChild(bin);
+
+            TodoSVGs.appendChild(edit);
+        }
+
+        const AppendTodoArray = () => {
+
+            console.log(mainProject.mainProjectContainer)
+            ProjectArray.forEach((project) => {
+            if (project.id === mainProject.mainProjectContainer.dataset.project){
+                const projectClicked = project;
+                projectClicked.appendTodo();
+
+                projectClicked.TodoArray.forEach((todo) => {
+
+                    TodoCard.setAttribute("id" ,todo.id);
+                    console.log("hi");
+                    cardTodoTitle.textContent = `Title: ${todo.title}`;
     
+                    cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
 
-        // Cannot loop through Project Array as it affects TodoArray
-        ProjectArray.forEach((project) => {
-            if (project.id === mainProject.mainProjectContainer.getAttribute("dataset-project")){
-                const todoProjectClicked = project;
+                    if (todo.priority === "Urgent"){
+                        TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
+                    } else if(todo.priority === "Not Urgent") {
+                        TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
+                    }
+                })
+                }
 
-                const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput.value, modalTodoPriorityInput.value);
-                todoProjectClicked.TodoArray.push(newTodo);
-
-
-                const TodoCard = document.createElement("div");
-                TodoCard.classList.add("TodoCard")
-                mainProjectBody.appendChild(TodoCard);
-
-                const TodoCardContent = document.createElement("div");
-                TodoCardContent.classList.add("TodoCardContent");
-                TodoCard.appendChild(TodoCardContent);
-
-
-                const cardTodoTitle = document.createElement("p");
-                cardTodoTitle.classList.add("cardTodoTitle");
-                TodoCardContent.appendChild(cardTodoTitle);
-
-                const cardTodoDate = document.createElement("div");
-                cardTodoDate.classList.add("cardTodoDate");
-                TodoCardContent.appendChild(cardTodoDate);
-
-                const todoCheckbox = document.createElement("input");
-                todoCheckbox.setAttribute("type", "checkbox");      
-                TodoCardContent.appendChild(todoCheckbox);
-
-                const TodoSVGs = document.createElement("div");
-                TodoSVGs.classList.add("TodoSVGs");
-                TodoCard.appendChild(TodoSVGs);
-            
-                const bin = document.createElement("img");
-                bin.src = binImage;
-                bin.classList.add("svg");
-                TodoSVGs.appendChild(bin);
-            
-                const edit = document.createElement("img");
-                edit.src = editImage;
-                edit.classList.add("svg");
-                TodoSVGs.appendChild(edit);
 
                 if (todoCheckbox.checked) {
                 cardTodoTitle.style.textDecoration = "line-through";
@@ -217,29 +253,12 @@ function AppendTodoCard() {
                     })
                 
                 })
-
-                todoProjectClicked.TodoArray.forEach((todo) => {
-
-                    TodoCard.setAttribute("id" ,todo.id);
-                    
-                    cardTodoTitle.textContent = `Title: ${todo.title}`;
+            })
+        }
     
-                    cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
-
-                    if (todo.priority === "Urgent"){
-                        TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
-                    } else if(todo.priority === "Not Urgent") {
-                        TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
-                    }
-
-                })
-
-            }
-     
-       
         
-        todoDialog.close();
-    })
+
+    return {TodoCardDisplay, AppendTodoArray}
 }
 
 function TodoRedisplay() {
@@ -343,16 +362,16 @@ function TodoListEventListeners() {
         projectSidebar.ProjectSidebarDisplay();
         projectSidebar.ProjectSidebarAttribute();
         projectSidebar.ProjectSidebarClicker();
-        console.log(ProjectArray);
         
     });
 
 
     submitTodoDialog.addEventListener("click", (e) => {
         e.preventDefault();
-        AppendTodoCard();
-
-        console.log(ProjectArray)
+        const todoCard = AppendTodoCard();
+        todoCard.AppendTodoArray();
+        todoCard.TodoCardDisplay();
+        CloseTodoModal();
     })
     
 
