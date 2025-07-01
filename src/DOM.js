@@ -160,7 +160,8 @@ function MainProject() {
 
 function AppendTodoCard() {
 
-        const currentProjectContainer = document.querySelector(".mainProjectContainer")
+        const currentProjectBody = document.querySelector("#mainProjectBody");
+        const currentProjectContainer = document.querySelector(".mainProjectContainer");
 
         const TodoCard = document.createElement("div");
         TodoCard.classList.add("TodoCard")
@@ -168,13 +169,14 @@ function AppendTodoCard() {
         const TodoCardContent = document.createElement("div");
         TodoCardContent.classList.add("TodoCardContent");
 
-        const cardTodoTitle = document.createElement("p");
+        const cardTodoTitle = document.createElement("span");
         cardTodoTitle.classList.add("cardTodoTitle");
 
-        const cardTodoDate = document.createElement("div");
+        const cardTodoDate = document.createElement("span");
         cardTodoDate.classList.add("cardTodoDate");
 
         const todoCheckbox = document.createElement("input");
+        todoCheckbox.classList.add("todoCheckbox");
         todoCheckbox.setAttribute("type", "checkbox");      
 
         const TodoSVGs = document.createElement("div");
@@ -190,7 +192,7 @@ function AppendTodoCard() {
 
         const TodoCardDisplay = () => {
 
-            mainProject.mainProjectBody.appendChild(TodoCard);
+            currentProjectBody.appendChild(TodoCard);
 
             TodoCard.appendChild(TodoCardContent);
 
@@ -210,7 +212,7 @@ function AppendTodoCard() {
         const AppendTodoArray = () => {
 
             ProjectArray.forEach((project) => {
-            if (project.id === mainProject.mainProjectContainer.dataset.project){
+            if (project.id === currentProjectContainer.getAttribute("dataset-project")){
                 const projectClicked = project;
                 projectClicked.appendTodo();
 
@@ -227,43 +229,51 @@ function AppendTodoCard() {
                     } else if(todo.priority === "Not Urgent") {
                         TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
                     }
+
+                    
                 })
+            
+            }
                 }
+            )
+        }
+        
 
-
-                if (todoCheckbox.checked) {
+        const TodoFunctionality = () => {
+            console.log(ProjectArray)
+            if (todoCheckbox.checked) {
                 cardTodoTitle.style.textDecoration = "line-through";
                 cardTodoDate.style.textDecoration = "line-through";
+                } else {
+                    cardTodoTitle.style.textDecoration = "none";
+                    cardTodoDate.style.textDecoration = "none";
                 }
 
                 bin.addEventListener("click", () => {
-                ProjectArray.forEach((project) =>{
-                    if (project.id === mainProject.mainProjectContainer.getAttribute("dataset-project")){
-                        const currentProject = project;
+                    ProjectArray.forEach((project) =>{
+                        if (project.id === currentProjectContainer.getAttribute("dataset-project")){
+                            const currentProject = project;
 
-                        currentProject.TodoArray.forEach((todo) => {
-                            if(todo.id === bin.getAttribute("id")){
-                                const currentTodo = todo;
-                                const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
-                                currentProject.TodoArray.splice(1, currentTodoIndex);
-                                
+                            currentProject.TodoArray.forEach((todo) => {
+                                if(todo.id === bin.getAttribute("id")){
+                                    const currentTodo = todo;
+                                    const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
+                                    currentProject.TodoArray.splice(1, currentTodoIndex);
+                                    console.log(ProjectArray);
                                 }
                             })
                         }
                     })
                 
                 })
-            })
         }
     
         
 
-    return {TodoCardDisplay, AppendTodoArray}
+    return {TodoCardDisplay, AppendTodoArray, TodoFunctionality}
 }
 
 function TodoRedisplay() {
-    
-    const mainProject = MainProject();
 
     ProjectArray.forEach((project) =>{
         if (project.id === mainProjectContainer.getAttribute("id")){
@@ -278,11 +288,11 @@ function TodoRedisplay() {
             TodoCardContent.classList.add("TodoCardContent");
             TodoCard.appendChild(TodoCardContent);
 
-            const cardTodoTitle = document.createElement("p");
+            const cardTodoTitle = document.createElement("span");
             cardTodoTitle.classList.add("cardTodoTitle");
             TodoCardContent.appendChild(cardTodoTitle);
 
-            const cardTodoDate = document.createElement("div");
+            const cardTodoDate = document.createElement("span");
             cardTodoDate.classList.add("cardTodoDate");
             TodoCardContent.appendChild(cardTodoDate);
 
@@ -332,6 +342,7 @@ function TodoRedisplay() {
                             const currentTodo = todo;
                             const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
                             currentProject.TodoArray.splice(1, currentTodoIndex);
+                            console.log(ProjectArray);
                             }
                         })
                     }
@@ -372,6 +383,7 @@ function TodoListEventListeners() {
         const todoCard = AppendTodoCard();
         todoCard.AppendTodoArray();
         todoCard.TodoCardDisplay();
+        todoCard.TodoFunctionality();
     })
     
 

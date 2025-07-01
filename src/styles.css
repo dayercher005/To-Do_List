@@ -214,6 +214,7 @@ div.TodoCard{
 div.TodoCardContent{
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 div.TodoCardContent, div.TodoSVGs, .svg{
@@ -228,4 +229,5 @@ div.TodoCardContent, div.TodoSVGs, .svg{
 .svg:hover{
     background-color: hsl(0, 6%, 90%);
 }
+
 
