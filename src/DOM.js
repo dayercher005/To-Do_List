@@ -146,7 +146,8 @@ function MainProject() {
     const MainProjectClicker = () => {
 
         addTodoButton.addEventListener("click", () => {
-            todoDialog.showModal();
+
+            ShowTodoModal();
 
         })
     }
@@ -159,7 +160,7 @@ function MainProject() {
 
 function AppendTodoCard() {
 
-        const mainProject = MainProject();
+        const currentProjectContainer = document.querySelector(".mainProjectContainer")
 
         const TodoCard = document.createElement("div");
         TodoCard.classList.add("TodoCard")
@@ -208,7 +209,6 @@ function AppendTodoCard() {
 
         const AppendTodoArray = () => {
 
-            console.log(mainProject.mainProjectContainer)
             ProjectArray.forEach((project) => {
             if (project.id === mainProject.mainProjectContainer.dataset.project){
                 const projectClicked = project;
@@ -217,7 +217,7 @@ function AppendTodoCard() {
                 projectClicked.TodoArray.forEach((todo) => {
 
                     TodoCard.setAttribute("id" ,todo.id);
-                    console.log("hi");
+
                     cardTodoTitle.textContent = `Title: ${todo.title}`;
     
                     cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
@@ -368,10 +368,10 @@ function TodoListEventListeners() {
 
     submitTodoDialog.addEventListener("click", (e) => {
         e.preventDefault();
+        CloseTodoModal();
         const todoCard = AppendTodoCard();
         todoCard.AppendTodoArray();
         todoCard.TodoCardDisplay();
-        CloseTodoModal();
     })
     
 
