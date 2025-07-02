@@ -269,9 +269,33 @@ function AppendTodoCard() {
                             if(todo.id === bin.getAttribute("id")){
                                 const currentTodo = todo;
                                 const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
-                                currentProject.TodoArray.splice(1, currentTodoIndex);
+                                currentProject.TodoArray.splice(currentTodoIndex, 1);
                                 console.log(ProjectArray);
+
+                                const currentTodoDOM = document.querySelector(`div[id = "${currentTodo.id}"]`)
+                                currentProjectBody.removeChild(currentTodoDOM);
                             }
+                        })
+
+                        currentProject.TodoArray.forEach((todo) => {
+
+                            TodoCard.setAttribute("id" ,todo.id);
+
+                            bin.setAttribute("id", todo.id);
+
+                            edit.setAttribute("id", todo.id);
+
+                            cardTodoTitle.textContent = `Title: ${todo.title}`;
+            
+                            cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
+
+                            if (todo.priority === "Urgent"){
+                                TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
+                            } else if (todo.priority === "Not Urgent") {
+                                TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
+                            }
+
+                    
                         })
                     }
                 })
@@ -286,6 +310,11 @@ function AppendTodoCard() {
                     }
                 })
             })
+        }
+
+        const RemoveTodoCard = () => {
+            currentProjectBody.removeChild()
+                            
         }
     
         
