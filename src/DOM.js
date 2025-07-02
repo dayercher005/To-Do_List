@@ -220,13 +220,17 @@ function AppendTodoCard() {
 
                     TodoCard.setAttribute("id" ,todo.id);
 
+                    bin.setAttribute("id", todo.id);
+
+                    edit.setAttribute("id", todo.id);
+
                     cardTodoTitle.textContent = `Title: ${todo.title}`;
     
                     cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
 
                     if (todo.priority === "Urgent"){
                         TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
-                    } else if(todo.priority === "Not Urgent") {
+                    } else if (todo.priority === "Not Urgent") {
                         TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
                     }
 
@@ -272,6 +276,15 @@ function AppendTodoCard() {
                     }
                 })
                 
+            })
+
+            edit.addEventListener("click", () => {
+                ProjectArray.forEach((project) =>{
+                    if (project.id === currentProjectContainer.getAttribute("dataset-project")){
+                        const currentProject = project;
+                        
+                    }
+                })
             })
         }
     
@@ -392,5 +405,4 @@ function TodoListEventListeners() {
         todoCard.TodoCardDisplay();
     })
     
-
 }
