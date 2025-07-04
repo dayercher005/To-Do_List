@@ -311,11 +311,6 @@ function AppendTodoCard() {
                 })
             })
         }
-
-        const RemoveTodoCard = () => {
-            currentProjectBody.removeChild()
-                            
-        }
     
         
 
