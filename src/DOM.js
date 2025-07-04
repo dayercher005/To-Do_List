@@ -227,9 +227,9 @@ function AppendTodoCard() {
 
                     TodoCard.setAttribute("id" ,todo.id);
 
-                    cardTodoTitle.setAttribute("id", todo.id);
+                    cardTodoTitle.setAttribute("dataset-title", todo.id);
 
-                    cardTodoDate.setAttribute("id", todo.id);
+                    cardTodoDate.setAttribute("dataset-date", todo.id);
 
                     bin.setAttribute("id", todo.id);
 
@@ -314,8 +314,11 @@ function AppendTodoCard() {
                                 modalTodoDateInput.value = `${currentTodo.date}`;
                                 modalTodoPriorityInput.value = `${currentTodo.priority}`;
 
-                                const currentTodoDOM = document.querySelector(`div[id = "${edit.id}"]`);
-                                
+                                const currentTodoTitle = document.querySelector(`span[dataset-date="${edit.id}"]`);
+                                currentTodoTitle.textContent = modalTodoTitleInput.value;
+
+                                const currentTodoDate = document.querySelector(`span[dataset-date="${edit.id}"]`);
+                                currentTodoDate.textContent = modalTodoDateInput.value;
                             }
                         })
                     }
