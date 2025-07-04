@@ -149,6 +149,11 @@ function MainProject() {
 
             ShowTodoModal();
 
+            modalTodoTitleInput.value = "";
+            modalTodoDescriptionInput.value = "";
+            modalTodoDateInput.value = "";
+            modalTodoPriorityInput.value = "Urgent";
+
         })
     }
 
@@ -222,6 +227,10 @@ function AppendTodoCard() {
 
                     TodoCard.setAttribute("id" ,todo.id);
 
+                    cardTodoTitle.setAttribute("id", todo.id);
+
+                    cardTodoDate.setAttribute("id", todo.id);
+
                     bin.setAttribute("id", todo.id);
 
                     edit.setAttribute("id", todo.id);
@@ -276,6 +285,8 @@ function AppendTodoCard() {
 
                                 const currentTodoDOM = document.querySelector(`div[id = "${bin.id}"]`)
                                 currentProjectBody.removeChild(currentTodoDOM);
+
+                                
                             }
                         })
 
@@ -286,11 +297,27 @@ function AppendTodoCard() {
                 
             })
 
-            edit.addEventListener("click", () => {
+            edit.addEventListener("click", (e) => {
+                e.preventDefault();
                 ProjectArray.forEach((project) =>{
                     if (project.id === currentProjectContainer.getAttribute("dataset-project")){
                         const currentProject = project;
                         
+                        currentProject.TodoArray.forEach((todo) => {
+                            if (todo.id === edit.id){
+                                const currentTodo = todo;
+                            
+                                ShowTodoModal();
+
+                                modalTodoTitleInput.value = `${currentTodo.title}`;
+                                modalTodoDescriptionInput.value = `${currentTodo.description}`;
+                                modalTodoDateInput.value = `${currentTodo.date}`;
+                                modalTodoPriorityInput.value = `${currentTodo.priority}`;
+
+                                const currentTodoDOM = document.querySelector(`div[id = "${edit.id}"]`);
+                                
+                            }
+                        })
                     }
                 })
             })
