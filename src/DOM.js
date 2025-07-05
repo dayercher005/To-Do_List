@@ -25,7 +25,12 @@ const modalTodoDateInput = document.querySelector("#modalTodoDateInput");
 const modalTodoPriorityInput = document.querySelector("#modalTodoPriorityInput");
 const submitTodoDialog = document.querySelector("#submitTodoDialog");
 
-
+const todoEditDialog = document.querySelector("#todoEditDialog");
+const modalEditTodoTitleInput = document.querySelector("#modalEditTodoTitleInput");
+const modalEditTodoDescriptionInput = document.querySelector("#modalEditTodoDescriptionInput");
+const modalEditTodoDateInput = document.querySelector("#modalEditTodoDateInput");
+const modalEditTodoPriorityInput = document.querySelector("#modalEditTodoPriorityInput");
+const submitEditTodoDialog = document.querySelector("#submitEditTodoDialog");
 
 function ShowProjectModal() {
 
@@ -51,6 +56,17 @@ function CloseTodoModal() {
 
 }
 
+function ShowTodoEditModal() {
+
+    todoEditDialog.showModal();
+
+}
+
+function CloseTodoEditModal() {
+
+    todoEditDialog.close();
+
+}
 
 
 function ProjectSidebar() {
@@ -299,6 +315,7 @@ function AppendTodoCard() {
 
             edit.addEventListener("click", (e) => {
                 e.preventDefault();
+                
                 ProjectArray.forEach((project) =>{
                     if (project.id === currentProjectContainer.getAttribute("dataset-project")){
                         const currentProject = project;
@@ -307,18 +324,25 @@ function AppendTodoCard() {
                             if (todo.id === edit.id){
                                 const currentTodo = todo;
                             
-                                ShowTodoModal();
+                                ShowTodoEditModal();
 
-                                modalTodoTitleInput.value = `${currentTodo.title}`;
-                                modalTodoDescriptionInput.value = `${currentTodo.description}`;
-                                modalTodoDateInput.value = `${currentTodo.date}`;
+                                modalEditTodoTitleInput.value = `${currentTodo.title}`;
+                                modalEditTodoDescriptionInput.value = `${currentTodo.description}`;
+                                modalEditTodoDateInput.value = `${currentTodo.dueDate}`;
                                 modalTodoPriorityInput.value = `${currentTodo.priority}`;
 
-                                const currentTodoTitle = document.querySelector(`span[dataset-date="${edit.id}"]`);
-                                currentTodoTitle.textContent = modalTodoTitleInput.value;
+                                const currentTodoTitle = document.querySelector(`span[dataset-title ="${edit.id}"]`);
+                                currentTodoTitle.textContent = `Title: ${modalTodoTitleInput.value}`;
 
                                 const currentTodoDate = document.querySelector(`span[dataset-date="${edit.id}"]`);
-                                currentTodoDate.textContent = modalTodoDateInput.value;
+                                currentTodoDate.textContent = `Due Date: ${modalTodoDateInput.value}`
+
+                                submitEditTodoDialog.addEventListener("click", (e) => {
+                                    e.preventDefault();
+                                    currentTodoTitle.textContent = `Title: ${modalEditTodoTitleInput.value}`;
+                                    currentTodoDate.textContent = `Date: ${modalEditTodoDateInput.value}`;                                    
+                                    CloseTodoEditModal();
+                                })
                             }
                         })
                     }

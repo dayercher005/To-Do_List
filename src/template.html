@@ -58,6 +58,31 @@
             </form>
         </dialog>
 
+        <dialog id="todoEditDialog">
+            <form>
+                <div class="Labels&Inputs">
+                    <label for="Title" class="modalLabels">Title: </label>
+                    <input id="modalEditTodoTitleInput" class="modalInput" type="text">
+                </div>
+                <div class="Labels&Inputs">
+                    <label for="Description" class="modalLabels">Description: </label>
+                    <input id="modalEditTodoDescriptionInput" class="modalInput" type="text" required>
+                </div>
+                <div class="Labels&Inputs">
+                    <label for="Due Date" class="modalLabels">Due Date: </label>
+                    <input id="modalEditTodoDateInput" class="modalInput" type="date" required>
+                </div>
+                <div class="Labels&Inputs">
+                    <label for="Priority" class="modalLabels">Priority: </label>
+                    <select id="modalEditTodoPriorityInput" class="modalInput">
+                        <option value="Urgent">Urgent</option>
+                        <option value="Not Urgent">Not Urgent</option>
+                    </select>
+                </div>
+                <input id="submitEditTodoDialog" type="submit">
+            </form>
+        </dialog>
+
     <div id="mainContent"></div>
 </body>
 </html>
