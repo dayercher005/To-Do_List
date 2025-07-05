@@ -331,17 +331,31 @@ function AppendTodoCard() {
                                 modalEditTodoDateInput.value = `${currentTodo.dueDate}`;
                                 modalTodoPriorityInput.value = `${currentTodo.priority}`;
 
+                                const currentTodoCard = document.querySelector(`div[id="${edit.id}"]`)
+
                                 const currentTodoTitle = document.querySelector(`span[dataset-title ="${edit.id}"]`);
-                                currentTodoTitle.textContent = `Title: ${modalTodoTitleInput.value}`;
 
                                 const currentTodoDate = document.querySelector(`span[dataset-date="${edit.id}"]`);
-                                currentTodoDate.textContent = `Due Date: ${modalTodoDateInput.value}`
 
                                 submitEditTodoDialog.addEventListener("click", (e) => {
                                     e.preventDefault();
+
+                                    currentTodo.title = modalEditTodoTitleInput.value;
+                                    currentTodo.description = modalEditTodoDescriptionInput.value;
+                                    currentTodo.dueDate = modalEditTodoDateInput.value;
+                                    currentTodo.priority = modalEditTodoPriorityInput.value;
+
                                     currentTodoTitle.textContent = `Title: ${modalEditTodoTitleInput.value}`;
-                                    currentTodoDate.textContent = `Date: ${modalEditTodoDateInput.value}`;                                    
+                                    currentTodoDate.textContent = `Due Date: ${modalEditTodoDateInput.value}`;
+
+                                    if (currentTodo.priority === "Urgent"){
+                                        currentTodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
+                                    } else if (currentTodo.priority === "Not Urgent") {
+                                        currentTodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
+                                    }
+
                                     CloseTodoEditModal();
+                                    console.log(ProjectArray);
                                 })
                             }
                         })
@@ -465,7 +479,6 @@ function TodoListEventListeners() {
         const todoCard = AppendTodoCard();
         todoCard.AppendTodoArray();
         todoCard.TodoCardDisplay();
-        console.log(ProjectArray)
     })
     
 }
