@@ -1,5 +1,4 @@
-import {ProjectArray, Project, ProjectArrayHandler} from "./ProjectObject.js";
-import {Todo} from "./TodoObject.js";
+import {ProjectArray, ProjectArrayHandler, LocalStorageRetriever} from "./ProjectObject.js";
 import binImage from "../images/archive.png";
 import editImage from "../images/edit.png";
 
@@ -31,6 +30,8 @@ const modalEditTodoDescriptionInput = document.querySelector("#modalEditTodoDesc
 const modalEditTodoDateInput = document.querySelector("#modalEditTodoDateInput");
 const modalEditTodoPriorityInput = document.querySelector("#modalEditTodoPriorityInput");
 const submitEditTodoDialog = document.querySelector("#submitEditTodoDialog");
+
+LocalStorageRetriever();
 
 function ShowProjectModal() {
 
@@ -112,6 +113,33 @@ function ProjectSidebar() {
                     mainProject.mainProjectTitle.textContent = currentProject.name;
                     mainProject.MainProjectDisplay();
                     mainProject.MainProjectClicker();
+                
+                    currentProject.TodoArray.forEach((todo) => {
+                        const currentTodoRedisplay = AppendTodoCard();
+
+                        currentTodoRedisplay.TodoCardDisplay();
+                        currentTodoRedisplay.TodoCard.setAttribute("id" ,todo.id);
+
+                        currentTodoRedisplay.cardTodoTitle.setAttribute("dataset-title", todo.id);
+
+                        currentTodoRedisplay.cardTodoDate.setAttribute("dataset-date", todo.id);
+
+                        currentTodoRedisplay.bin.setAttribute("id", todo.id);
+
+                        currentTodoRedisplay.edit.setAttribute("id", todo.id);
+
+                        currentTodoRedisplay.cardTodoTitle.textContent = `Title: ${todo.title}`;
+        
+                        currentTodoRedisplay.cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
+
+                        if (todo.priority === "Urgent"){
+                            currentTodoRedisplay.TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
+                        } else if (todo.priority === "Not Urgent") {
+                            currentTodoRedisplay.TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
+                        }
+
+                        currentTodoRedisplay.TodoFunctionality();
+                    })
                 }
             })
         })
@@ -211,7 +239,6 @@ function AppendTodoCard() {
         edit.src = editImage;
         edit.classList.add("svg");
 
-        console.log(ProjectArray);
 
         const TodoCardDisplay = () => {
 
@@ -230,6 +257,7 @@ function AppendTodoCard() {
             TodoSVGs.appendChild(bin);
 
             TodoSVGs.appendChild(edit);
+
         }
 
         const AppendTodoArray = () => {
@@ -366,7 +394,7 @@ function AppendTodoCard() {
     
         
 
-    return {TodoCardDisplay, AppendTodoArray}
+    return {TodoCardDisplay, AppendTodoArray, TodoFunctionality, TodoCard, cardTodoTitle, cardTodoDate, bin, edit}
 }
 
 function TodoRedisplay() {
@@ -375,78 +403,12 @@ function TodoRedisplay() {
         if (project.id === mainProjectContainer.getAttribute("id")){
             const currentProject = project;
 
-        currentProject.TodoArray.forEach((todo) => {
-            const TodoCard = document.createElement("div");
-            TodoCard.classList.add("TodoCard")
-            mainProjectContainer.appendChild(TodoCard);
+            currentProject.TodoArray.forEach((todo) => {
+                const TodoCardRedisplay = AppendTodoCard();
+                TodoCardRedisplay.TodoCardDisplay();
+                TodoCardRedisplay.AppendTodoArray();
 
-            const TodoCardContent = document.createElement("div");
-            TodoCardContent.classList.add("TodoCardContent");
-            TodoCard.appendChild(TodoCardContent);
-
-            const cardTodoTitle = document.createElement("span");
-            cardTodoTitle.classList.add("cardTodoTitle");
-            TodoCardContent.appendChild(cardTodoTitle);
-
-            const cardTodoDate = document.createElement("span");
-            cardTodoDate.classList.add("cardTodoDate");
-            TodoCardContent.appendChild(cardTodoDate);
-
-            const todoCheckbox = document.createElement("input");
-            todoCheckbox.setAttribute("type", "checkbox");      
-            TodoCardContent.appendChild(todoCheckbox);
-
-            const TodoSVGs = document.createElement("div");
-            TodoSVGs.classList.add("TodoSVGs");
-            TodoCard.appendChild(TodoSVGs);
-
-            const bin = document.createElement("img");
-            bin.src = binImage;
-            bin.classList.add("svg");
-            bin.setAttribute("id", todo.id)
-            TodoSVGs.appendChild(bin);
-            
-            const edit = document.createElement("img");
-            edit.src = editImage;
-            edit.classList.add("svg");
-            edit.setAttribute("id", todo.id)
-            TodoSVGs.appendChild(edit);
-
-            cardTodoTitle.textContent = `Title: ${todo.title}`;
-
-            cardTodoDate.textContent = `Due Date: ${todo.dueDate}`;
-            console.log(currentProject.TodoArray)
-
-            if (todo.priority === "Urgent") {
-                TodoCard.style.borderLeft = "10px solid hsl(0, 98%, 55%)";
-            } else if (todo.priority === "Not Urgent"){
-                TodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
-            }
-
-            if (todoCheckbox.checked) {
-                cardTodoTitle.style.textDecoration = "line-through";
-                cardTodoDate.style.textDecoration = "line-through";
-            }
-
-            bin.addEventListener("click", () => {
-            ProjectArray.forEach((project) =>{
-                if (project.id === mainProjectContainer.getAttribute("id")){
-                    const currentProject = project;
-
-                    currentProject.TodoArray.forEach((todo) => {
-                        if(todo.id === bin.getAttribute("id")){
-                            const currentTodo = todo;
-                            const currentTodoIndex = currentProject.TodoArray.indexOf(currentTodo)
-                            currentProject.TodoArray.splice(1, todo);
-                            
-                            }
-                        })
-                    }
-                })
-            
             })
-
-        })
                 
             
         }
