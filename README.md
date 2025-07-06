@@ -1,5 +1,7 @@
 # To-Do_List
 
+Link to Live Preview of To-Do_List: https://github.com/dayercher005/To-Do_List
+
 ## How to Run
 
 1. Clone the repository:
