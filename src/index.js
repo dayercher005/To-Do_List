@@ -1,7 +1,7 @@
 import "./styles.css";
-import {TodoListEventListeners} from "./DOM.js"
+import {StorageRetriever, TodoListEventListeners} from "./DOM.js"
 
-
+StorageRetriever();
 
 TodoListEventListeners();
 

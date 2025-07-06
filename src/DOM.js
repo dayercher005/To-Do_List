@@ -1,9 +1,10 @@
-import {ProjectArray, ProjectArrayHandler, LocalStorageRetriever} from "./ProjectObject.js";
+import {ProjectArray, ProjectArrayHandler} from "./ProjectObject.js";
 import binImage from "../images/archive.png";
 import editImage from "../images/edit.png";
+import {Todo} from "./TodoObject.js"
 
 export {modalProjectNameInput, modalTodoTitleInput, modalTodoDescriptionInput, modalTodoDateInput, modalTodoPriorityInput}
-export {TodoListEventListeners}
+export {StorageRetriever, TodoListEventListeners}
 
 const mainContent = document.querySelector("#mainContent");
 
@@ -31,13 +32,28 @@ const modalEditTodoDateInput = document.querySelector("#modalEditTodoDateInput")
 const modalEditTodoPriorityInput = document.querySelector("#modalEditTodoPriorityInput");
 const submitEditTodoDialog = document.querySelector("#submitEditTodoDialog");
 
-function StorageRetriever(){
-    LocalStorageRetriever();
 
+function StorageRetriever() {
+    const newProject = ProjectArrayHandler();
+    const updatedProjectArray = newProject.RetrieveProjectArray();
     
-}
+    updatedProjectArray.forEach((project) => {
+        const ProjectSidebarStorage = ProjectSidebar();
+        
+        ProjectSidebarStorage.sidebarProjectText.textContent = project.name;
+        ProjectSidebarStorage.sidebarProjectContainer.setAttribute("dataset-project", project.id);
 
-LocalStorageRetriever();
+        ProjectSidebarStorage.ProjectSidebarDisplay();
+
+        ProjectSidebarStorage.ProjectSidebarClicker();
+
+        project.TodoArray.forEach(() => {
+            
+
+            
+        })
+    })
+}
 
 function ShowProjectModal() {
 
@@ -107,6 +123,7 @@ function ProjectSidebar() {
         })
     }
 
+
     const ProjectSidebarClicker = () => {
 
         sidebarProjectContainer.addEventListener("click", () => {
@@ -151,7 +168,7 @@ function ProjectSidebar() {
         })
     }
 
-    return {ProjectSidebarDisplay, ProjectSidebarArray, ProjectSidebarAttribute, ProjectSidebarClicker}
+    return {ProjectSidebarDisplay, ProjectSidebarArray, ProjectSidebarAttribute, ProjectSidebarClicker, sidebarProjectContainer, sidebarProjectText}
 
             
 
@@ -267,13 +284,14 @@ function AppendTodoCard() {
         }
 
         const AppendTodoArray = () => {
-
             ProjectArray.forEach((project) => {
             if (project.id === currentProjectContainer.getAttribute("dataset-project")){
-                const projectClicked = project;
-                projectClicked.appendTodo();
+                const currentProject = project
 
-                projectClicked.TodoArray.forEach((todo) => {
+                const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput.value, modalTodoPriorityInput.value);
+                currentProject.TodoArray.push(newTodo);
+
+                currentProject.TodoArray.forEach((todo) => {
 
                     TodoCard.setAttribute("id" ,todo.id);
 
@@ -336,6 +354,8 @@ function AppendTodoCard() {
                                 const currentTodoDOM = document.querySelector(`div[id = "${bin.id}"]`)
                                 currentProjectBody.removeChild(currentTodoDOM);
 
+                                const StorageProjectArray = ProjectArrayHandler();
+                                StorageProjectArray.StoreProjectArray();
                                 
                             }
                         })
@@ -388,8 +408,11 @@ function AppendTodoCard() {
                                         currentTodoCard.style.borderLeft = "10px solid hsl(126, 98.30%, 55.10%)";
                                     }
 
+                                    const StorageProjectArray = ProjectArrayHandler();
+                                    StorageProjectArray.StoreProjectArray();
+
                                     CloseTodoEditModal();
-                                    console.log(ProjectArray);
+                                
                                 })
                             }
                         })
@@ -437,7 +460,8 @@ function TodoListEventListeners() {
         projectSidebar.ProjectSidebarDisplay();
         projectSidebar.ProjectSidebarAttribute();
         projectSidebar.ProjectSidebarClicker();
-        
+        const StorageProjectArray = ProjectArrayHandler();
+        StorageProjectArray.StoreProjectArray();
     });
 
 
@@ -446,7 +470,9 @@ function TodoListEventListeners() {
         CloseTodoModal();
         const todoCard = AppendTodoCard();
         todoCard.AppendTodoArray();
-        todoCard.TodoCardDisplay();
+        todoCard.TodoCardDisplay();   
+        const StorageProjectArray = ProjectArrayHandler();
+        StorageProjectArray.StoreProjectArray();
     })
-    
+ 
 }

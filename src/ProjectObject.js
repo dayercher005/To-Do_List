@@ -2,9 +2,9 @@ import {modalProjectNameInput} from "./DOM.js"
 import {modalTodoTitleInput, modalTodoDescriptionInput, modalTodoDateInput, modalTodoPriorityInput} from "./DOM.js"
 import {Todo} from "./TodoObject.js"
 
-export {ProjectArray, Project, ProjectArrayHandler, LocalStorageRetriever}
+export {ProjectArray, Project, ProjectArrayHandler}
 
-const ProjectArray = [];
+let ProjectArray = [];
 
 
 class Project{
@@ -15,12 +15,6 @@ class Project{
         this.TodoArray = [];
     }
 
-    appendTodo(){
-        const newTodo = new Todo(modalTodoTitleInput.value, modalTodoDescriptionInput.value, modalTodoDateInput.value, modalTodoPriorityInput.value);
-        this.TodoArray.push(newTodo);
-        localStorage.setItem("todos", JSON.stringify(newTodo));
-    }
-
 }
 
 
@@ -29,26 +23,18 @@ function ProjectArrayHandler() {
     const AppendProjectArray = () => {
         const newProject = new Project(modalProjectNameInput.value);
         ProjectArray.push(newProject);
-        localStorage.setItem("projects", JSON.stringify(newProject));
+        StoreProjectArray();
     }
     
-    const getIndividualProject = (DOM_ID) => {
-        ProjectArray.forEach((project) => {
-            if (DOM_ID === project.id){
-                project.getID();
-            }
-        })
-        
+    const StoreProjectArray = () => {
+        localStorage.setItem("TodoList", JSON.stringify(ProjectArray));
     }
 
-    return {AppendProjectArray, getIndividualProject}
+    const RetrieveProjectArray = () => {
+        ProjectArray = JSON.parse(localStorage.getItem("TodoList")) || [];
+        return ProjectArray
+    }
+
+    return {AppendProjectArray, StoreProjectArray, RetrieveProjectArray}
 
 }
-
-function LocalStorageRetriever() {
-    JSON.parse(localStorage.getItem("projects"));
-    JSON.parse(localStorage.getItem("todos"));
-}
-
-
-
