@@ -47,11 +47,6 @@ function StorageRetriever() {
 
         ProjectSidebarStorage.ProjectSidebarClicker();
 
-        project.TodoArray.forEach(() => {
-            
-
-            
-        })
     })
 }
 
