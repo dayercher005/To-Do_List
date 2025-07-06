@@ -1,6 +1,4 @@
 import {modalProjectNameInput} from "./DOM.js"
-import {modalTodoTitleInput, modalTodoDescriptionInput, modalTodoDateInput, modalTodoPriorityInput} from "./DOM.js"
-import {Todo} from "./TodoObject.js"
 
 export {ProjectArray, Project, ProjectArrayHandler}
 
