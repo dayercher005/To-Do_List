@@ -31,6 +31,12 @@ const modalEditTodoDateInput = document.querySelector("#modalEditTodoDateInput")
 const modalEditTodoPriorityInput = document.querySelector("#modalEditTodoPriorityInput");
 const submitEditTodoDialog = document.querySelector("#submitEditTodoDialog");
 
+function StorageRetriever(){
+    LocalStorageRetriever();
+
+    
+}
+
 LocalStorageRetriever();
 
 function ShowProjectModal() {
