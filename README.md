@@ -16,7 +16,7 @@ npm install
 
 3. Start Development Server:
 ```bash
-npm run start
+npm run dev
 ```
 
 4. Open `http://localHost:8080` in your browser
