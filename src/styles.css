@@ -72,6 +72,7 @@ div[id="ProjectTitleContainer"]{
 }
 
 /* CSS Code for Static Main Bar Elements */
+
 div[id="mainContent"]{
     border: 1px solid var(--border-color);
     width: 100%;
@@ -144,6 +145,8 @@ div.sidebarProjectContainer{
 div.sidebarProjectContainer:hover{
     display: flex;
     background-color: var(--border-hover-color);
+    transform: translateY(-5px);
+    transition: transform 0.3s;
 }
 
 div.sidebarProjectContainer{
@@ -209,6 +212,11 @@ div.TodoCard{
     background-color: var(--white-color);
     border: 3px solid black;
     padding: 10px;
+}
+
+div.TodoCard:hover{
+    transform: translateY(-5px);
+    transition: transform 0.3s;
 }
 
 div.TodoCardContent{
